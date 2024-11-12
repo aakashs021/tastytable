@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "832452642758",
+    "project_id": "tastytable-cef88",
+    "storage_bucket": "tastytable-cef88.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832452642758:android:a088411a602b1ba2ce14c7",
+        "android_client_info": {
+          "package_name": "com.example.tastytable"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT7M28zVH93ALLBH9-CraQ9YY9jYZKVj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
