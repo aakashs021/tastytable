@@ -1,6 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tastytable/app_router.dart';
+import 'package:tastytable/core/configs/theme/app_theme.dart';
+import 'package:tastytable/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:tastytable/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:tastytable/firebase_options.dart';
 import 'package:tastytable/service_locator.dart';
 
@@ -11,8 +17,8 @@ void main(List<String> args)async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
-await ServiceLocator.intializeDependencies();
-  runApp(MyApp());
+await ServiceLocator.initializeDependencies();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,24 +26,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final GoRouter router= AppRouter.router;
+      FlutterNativeSplash.remove();
+    return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (context) => AuthBloc(),
+      )
+    ], child:  MaterialApp.router(
+      theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      home: demo(),
-    );
-  }
-}
-
-class demo extends StatelessWidget {
-  const demo({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 1),() =>  FlutterNativeSplash.remove(),);  
-       
-
-    return Scaffold(
+      routerConfig: router,
+    ));
     
-      backgroundColor: Colors.black,
-    );
   }
 }
+
+

@@ -1,7 +1,7 @@
 class UserDetail {
-  final String name;
+  final String password;
   final String email;
 
-  UserDetail({required this.name, required this.email});
+  UserDetail({required this.password, required this.email});
 
 }

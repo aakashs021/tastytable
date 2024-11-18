@@ -1,0 +1,4 @@
+enum AuthPageType {
+  signin,
+  signup,
+}

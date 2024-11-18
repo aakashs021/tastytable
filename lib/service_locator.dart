@@ -7,18 +7,20 @@ import 'package:tastytable/features/auth/data/repository/auth_repository_impl.da
 import 'package:tastytable/features/auth/data/repository/firestore_repository_impl.dart';
 import 'package:tastytable/features/auth/domain/repository/auth_repository.dart';
 import 'package:tastytable/features/auth/domain/repository/firestore_repository.dart';
+import 'package:tastytable/features/auth/domain/usecase/get_user_usecase.dart';
+import 'package:tastytable/features/auth/domain/usecase/signin_usecase.dart';
 import 'package:tastytable/features/auth/domain/usecase/signup_usecase.dart';
 
 class ServiceLocator {
   static final sl = GetIt.instance;
 
-  static Future intializeDependencies() async {
-    sl.registerSingleton<AuthFirebaseService>(AuthFirebaseServiceImpl());
-    sl.registerSingleton<AuthRepostory>(AuthRepositoryImpl());
-    sl.registerSingleton<SignupUsecase>(SignupUsecase());
-    sl.registerSingleton<FirebaseFirestoreService>(
-        FirebaseFirestoreServiceImpl());
-    sl.registerSingleton<FirestoreRepository>(FirestoreRepositoryImpl());
-    sl.registerSingleton<SignupUsecase>(SignupUsecase());
+  static Future<void> initializeDependencies() async {
+    sl.registerLazySingleton<AuthFirebaseService>(() => AuthFirebaseServiceImpl());
+    sl.registerLazySingleton<AuthRepostory>(() => AuthRepositoryImpl());
+    sl.registerLazySingleton<SignupUsecase>(() => SignupUsecase());
+    sl.registerLazySingleton<FirebaseFirestoreService>(() => FirebaseFirestoreServiceImpl());
+    sl.registerLazySingleton<FirestoreRepository>(() => FirestoreRepositoryImpl());
+    sl.registerLazySingleton<SigninUseCase>(() => SigninUseCase());
+    sl.registerLazySingleton<GetUserUsecase>(() => GetUserUsecase());
   }
 }

@@ -6,7 +6,7 @@ class UserModel extends User {
 
       factory UserModel.fromFirebase(Map<String, dynamic> data) {
     return UserModel(
-      name: data['uid'] as String,
+      name: data['name'] as String,
       email: data['email'] as String,
       password: data['password'] as String
     );

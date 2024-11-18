@@ -5,9 +5,8 @@ abstract class AuthEvent {}
 
 class SignUpEvent extends AuthEvent {
   final UserModel userModel;
-  final UserDetailModel userDetailModel;
 
-  SignUpEvent({required this.userModel,required this.userDetailModel});
+  SignUpEvent({required this.userModel});
 }
 
 class SignInEvent extends AuthEvent{

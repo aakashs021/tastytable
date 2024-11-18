@@ -4,10 +4,10 @@ import 'package:tastytable/features/auth/data/model/user_model.dart';
 import 'package:tastytable/features/auth/domain/repository/auth_repository.dart';
 import 'package:tastytable/service_locator.dart';
 
-class SigninUseCase implements Usecase<Either, UserModel, Null> {
+class SigninUseCase implements Usecase<Either, UserModel> {
   @override
-  Future<Either> call(
-      {required UserModel params1, required Null params2}) async {
+  Future<Either<String,String>> call(
+      {required UserModel params1}) async {
     try {
       return await ServiceLocator.sl<AuthRepostory>()
           .signIn(userModel: params1);
