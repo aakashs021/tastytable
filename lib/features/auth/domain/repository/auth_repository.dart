@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:tastytable/features/auth/data/model/user_detail_model.dart';
 import 'package:tastytable/features/auth/data/model/user_model.dart';
 
 abstract class AuthRepostory {
@@ -7,6 +6,11 @@ abstract class AuthRepostory {
 
   Future<Either<String,String>> signUp({required UserModel userModel});
 
+  Future<Either<String,String>> googleSignIn();
+
     Either<Null,String> getUser();
+
+      Either<String,String> signOut();
+
 
 }

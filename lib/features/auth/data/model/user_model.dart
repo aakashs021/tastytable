@@ -8,7 +8,7 @@ class UserModel extends User {
     return UserModel(
       name: data['name'] as String,
       email: data['email'] as String,
-      password: data['password'] as String
+      password: "" 
     );
   }
 
@@ -16,7 +16,6 @@ class UserModel extends User {
     return {
       'name': name,
       'email': email,
-      'password':password
     };
   }
 }

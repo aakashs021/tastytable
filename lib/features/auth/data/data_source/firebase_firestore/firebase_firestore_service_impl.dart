@@ -4,7 +4,7 @@ import 'package:tastytable/features/auth/data/data_source/firebase_firestore/fir
 import 'package:tastytable/features/auth/data/model/user_model.dart';
 
 class FirebaseFirestoreServiceImpl extends FirebaseFirestoreService {
-   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   Future<Either<String, String>> storeUserDetail(
       {required UserModel userModel}) async {
@@ -18,20 +18,19 @@ class FirebaseFirestoreServiceImpl extends FirebaseFirestoreService {
       return Left("Error: ${e.toString()}");
     }
   }
-  
-  @override
-  Future<Either<String,UserModel>> getUserDetail({required String email})async {
-    try{
 
-   var user= await firestore.collection('users').doc(email).get();
-   if(user.data()!=null){
-   UserModel userDetailModel = UserModel.fromFirebase(user.data()!);
-   return right(userDetailModel);
-   }
-   return left("User data not found!");
-    }catch (e){
+  @override
+  Future<Either<String, UserModel>> getUserDetail(
+      {required String email}) async {
+    try {
+      var user = await firestore.collection('users').doc(email).get();
+      if (user.data() != null) {
+        UserModel userDetailModel = UserModel.fromFirebase(user.data()!);
+        return right(userDetailModel);
+      }
+      return left("User data not found!");
+    } catch (e) {
       return left(e.toString());
     }
-
   }
 }

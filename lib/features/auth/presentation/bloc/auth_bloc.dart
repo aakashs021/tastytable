@@ -16,7 +16,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       Either result = await ServiceLocator.sl<SigninUseCase>()
           .call(params1: event.userModel);
-      _handleResult(result, emit);
+      _handleResult(result, emit,true);
     } catch (e) {
       emit(AuthError(e.toString()));
     }
@@ -27,16 +27,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       Either result = await ServiceLocator.sl<SignupUsecase>()
           .call(params1: event.userModel);
-      _handleResult(result, emit);
+      _handleResult(result, emit,false);
     } catch (e) {
       emit(AuthError(e.toString()));
     }
   }
 
-  _handleResult(Either result, Emitter<AuthState> emit) {
+  _handleResult(Either result, Emitter<AuthState> emit,bool signChecker) {
     result.fold(
       (failure) => emit(AuthError(failure)),
-      (success) => emit(AuthSuccess(success)),
+      (success) => emit(AuthSuccess(success,isLogin: signChecker)),
     );
   }
 }

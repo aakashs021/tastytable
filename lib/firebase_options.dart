@@ -41,46 +41,47 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC7eXyHi9eDAy9n8hHAZ-4Ng6q7fyIA70s',
-    appId: '1:832452642758:web:ddcef5741fbc0837ce14c7',
-    messagingSenderId: '832452642758',
-    projectId: 'tastytable-cef88',
-    authDomain: 'tastytable-cef88.firebaseapp.com',
-    storageBucket: 'tastytable-cef88.firebasestorage.app',
+    apiKey: 'AIzaSyDi0w5lzlvtZnstVRIICDivW1QaqA3HPYw',
+    appId: '1:313981550890:web:f1790cf045a08f7d3a9e53',
+    messagingSenderId: '313981550890',
+    projectId: 'tastytable-32cd1',
+    authDomain: 'tastytable-32cd1.firebaseapp.com',
+    storageBucket: 'tastytable-32cd1.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCT7M28zVH93ALLBH9-CraQ9YY9jYZKVj0',
-    appId: '1:832452642758:android:a088411a602b1ba2ce14c7',
-    messagingSenderId: '832452642758',
-    projectId: 'tastytable-cef88',
-    storageBucket: 'tastytable-cef88.firebasestorage.app',
+    apiKey: 'AIzaSyD385Vqrqt2WEXxepeytI44PyiVdRY6_20',
+    appId: '1:313981550890:android:d2b04cf868a19c143a9e53',
+    messagingSenderId: '313981550890',
+    projectId: 'tastytable-32cd1',
+    storageBucket: 'tastytable-32cd1.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB3PGX0qiM01xUB7CyOSm8g-Y6hcZILMAg',
-    appId: '1:832452642758:ios:b234b130dff4084cce14c7',
-    messagingSenderId: '832452642758',
-    projectId: 'tastytable-cef88',
-    storageBucket: 'tastytable-cef88.firebasestorage.app',
+    apiKey: 'AIzaSyCYFSHN7j0w_ilG5M8w4t1eFkNwHjD5AC8',
+    appId: '1:313981550890:ios:bf2c2381436499953a9e53',
+    messagingSenderId: '313981550890',
+    projectId: 'tastytable-32cd1',
+    storageBucket: 'tastytable-32cd1.firebasestorage.app',
     iosBundleId: 'com.example.tastytable',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB3PGX0qiM01xUB7CyOSm8g-Y6hcZILMAg',
-    appId: '1:832452642758:ios:b234b130dff4084cce14c7',
-    messagingSenderId: '832452642758',
-    projectId: 'tastytable-cef88',
-    storageBucket: 'tastytable-cef88.firebasestorage.app',
+    apiKey: 'AIzaSyCYFSHN7j0w_ilG5M8w4t1eFkNwHjD5AC8',
+    appId: '1:313981550890:ios:bf2c2381436499953a9e53',
+    messagingSenderId: '313981550890',
+    projectId: 'tastytable-32cd1',
+    storageBucket: 'tastytable-32cd1.firebasestorage.app',
     iosBundleId: 'com.example.tastytable',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyC7eXyHi9eDAy9n8hHAZ-4Ng6q7fyIA70s',
-    appId: '1:832452642758:web:46d5fe1ec7dbc4c2ce14c7',
-    messagingSenderId: '832452642758',
-    projectId: 'tastytable-cef88',
-    authDomain: 'tastytable-cef88.firebaseapp.com',
-    storageBucket: 'tastytable-cef88.firebasestorage.app',
+    apiKey: 'AIzaSyDi0w5lzlvtZnstVRIICDivW1QaqA3HPYw',
+    appId: '1:313981550890:web:c399e0c9de26a2083a9e53',
+    messagingSenderId: '313981550890',
+    projectId: 'tastytable-32cd1',
+    authDomain: 'tastytable-32cd1.firebaseapp.com',
+    storageBucket: 'tastytable-32cd1.firebasestorage.app',
   );
+
 }

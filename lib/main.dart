@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tastytable/app_router.dart';
+import 'package:tastytable/features/auth/presentation/widgets/g_cubit.dart';
+import 'package:tastytable/router/app_router.dart';
 import 'package:tastytable/core/configs/theme/app_theme.dart';
 import 'package:tastytable/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:tastytable/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:tastytable/firebase_options.dart';
 import 'package:tastytable/service_locator.dart';
 
@@ -29,6 +29,9 @@ class MyApp extends StatelessWidget {
     final GoRouter router= AppRouter.router;
       FlutterNativeSplash.remove();
     return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (context) => GoogleSignInCubit(),
+      ),
       BlocProvider(
         create: (context) => AuthBloc(),
       )

@@ -6,8 +6,9 @@ class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {
   final String message;
+  bool isLogin =false;
 
-  AuthSuccess(this.message);
+  AuthSuccess(this.message,{this.isLogin=false});
 }
 
 class AuthError extends AuthState {

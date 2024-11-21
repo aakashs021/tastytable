@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tastytable/router/app_router_constants.dart';
 import 'package:tastytable/features/auth/presentation/enum/auth_page_type_enum.dart';
 
 Widget authBottomText(
@@ -23,10 +24,11 @@ Widget authBottomText(
         InkWell(
           onTap: () {
             if (textType == AuthPageType.signin) {
-              context.push('/signup');
+              context.pushNamed(AppRouterConstants.signUpRouteName);
             } else {
-              // context.go('/signin');
-              GoRouter.of(context).replace('/signin');
+           context.goNamed(AppRouterConstants.signInRouteName);
+
+              // GoRouter.of(context).goNamed(AppRouterConstants.signUpRouteName);
             }
           },
           child: Text(
