@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 import 'package:tastytable/features/auth/presentation/bloc/auth_state.dart';
-import 'package:tastytable/features/auth/presentation/widgets/g_cubit.dart';
+import 'package:tastytable/features/auth/presentation/cubit/g_cubit.dart';
 import 'package:tastytable/features/auth/presentation/widgets/snack_bar.dart';
 import 'package:tastytable/router/app_router_constants.dart';
 
@@ -42,10 +42,14 @@ class GoogleSignInButton extends StatelessWidget {
                 builder: (context) {
                   return const AlertDialog(
                     backgroundColor: Colors.transparent,
-                    content: LoadingIndicator(
-                      colors: [Colors.white],
-                      indicatorType: Indicator.ballPulse,
-                      backgroundColor: Colors.transparent,
+                    content: SizedBox(
+                      width: 50,
+                      height: 100,
+                      child: LoadingIndicator(
+                        colors: [Colors.white],
+                        indicatorType: Indicator.ballPulse,
+                        backgroundColor: Colors.transparent,
+                      ),
                     ),
                   );
                 },
@@ -63,17 +67,6 @@ class GoogleSignInButton extends StatelessWidget {
           },
           child: SignInButton(Buttons.google, onPressed: () async {
             context.read<GoogleSignInCubit>().signInWithGoogle();
-
-            // isloading = true;
-
-            // await GoogleSignInUsecase().call();
-            // Either<String, UserModel> result = await GetUserUsecase().call();
-            // result.fold(
-            //   (l) {
-            //     isloading = false;
-            //   },
-            //   (r) => context.goNamed(AppRouterConstants.homeRouteName),
-            // );
           },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10))),

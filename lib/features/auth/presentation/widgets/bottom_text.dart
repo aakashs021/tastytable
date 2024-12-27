@@ -28,7 +28,6 @@ Widget authBottomText(
             } else {
            context.goNamed(AppRouterConstants.signInRouteName);
 
-              // GoRouter.of(context).goNamed(AppRouterConstants.signUpRouteName);
             }
           },
           child: Text(

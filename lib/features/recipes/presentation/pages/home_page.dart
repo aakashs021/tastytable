@@ -12,19 +12,67 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            ElevatedButton(
-                onPressed: () {
-                  Either<String, String> result = SignoutUsecase().call();
-                  result.fold(
-                    (l) => authSnackBar(context: context, state: AuthError(l)),
-                    (r) => context.goNamed(AppRouterConstants.signInRouteName),
-                  );
-                },
-                child: const Text('signout')),
-          ],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: ListView(
+            children: [
+              Text("Explore"),
+              Text('What would you like to eat?'),
+              Container(
+                height: 100,
+                width: double.infinity,
+                color: Colors.red,
+              ),
+              Text('Kerala Cusine'),
+              Container(
+                height: 250,
+                child: ListView.builder(
+                  padding: EdgeInsets.all(5),
+                  // shrinkWrap: true,
+                  itemCount: 10,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.all(5),
+                      width: 200,
+                      height: 200,
+                      color: Colors.blue,
+                    );
+                  },
+                ),
+              ),
+              Text('Kerala Cusine'),
+              Container(
+                height: 250,
+                child: ListView.builder(
+                  padding: EdgeInsets.all(5),
+                  // shrinkWrap: true,
+                  itemCount: 10,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.all(5),
+                      width: 200,
+                      height: 200,
+                      color: Colors.blue,
+                    );
+                  },
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Either<String, String> result = SignoutUsecase().call();
+                    result.fold(
+                      (l) =>
+                          authSnackBar(context: context, state: AuthError(l)),
+                      (r) =>
+                          context.goNamed(AppRouterConstants.signInRouteName),
+                    );
+                  },
+                  child: const Text('signout')),
+            ],
+          ),
         ),
       ),
     );

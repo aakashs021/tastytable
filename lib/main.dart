@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tastytable/features/auth/presentation/widgets/g_cubit.dart';
+import 'package:tastytable/features/auth/presentation/cubit/g_cubit.dart';
+import 'package:tastytable/native_splash_screen.dart';
 import 'package:tastytable/router/app_router.dart';
 import 'package:tastytable/core/configs/theme/app_theme.dart';
 import 'package:tastytable/features/auth/presentation/bloc/auth_bloc.dart';
@@ -12,8 +12,7 @@ import 'package:tastytable/service_locator.dart';
 
 
 void main(List<String> args)async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  NativeSplashScreen.showSplash();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
@@ -27,15 +26,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GoRouter router= AppRouter.router;
-      FlutterNativeSplash.remove();
+NativeSplashScreen.removeSplash();
     return MultiBlocProvider(providers: [
-      BlocProvider(
+BlocProvider(
         create: (context) => GoogleSignInCubit(),
       ),
       BlocProvider(
         create: (context) => AuthBloc(),
-      )
-    ], child:  MaterialApp.router(
+      )    ], child:  MaterialApp.router(
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
       routerConfig: router,
