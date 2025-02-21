@@ -51,7 +51,7 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
       String name = currentUser.displayName ?? "";
       final userDoc = await FirebaseFirestore.instance
         .collection('users')
-        .doc(email)  // Use the email as the document ID or create another unique ID
+        .doc(email)
         .get();
         if(!userDoc.exists){
       UserModel userModel = UserModel(name: name, email: email, password: "");

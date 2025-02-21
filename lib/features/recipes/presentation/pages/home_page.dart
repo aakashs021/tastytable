@@ -1,10 +1,8 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:tastytable/features/auth/domain/usecase/signout_usecase.dart';
-import 'package:tastytable/features/auth/presentation/bloc/auth_state.dart';
-import 'package:tastytable/features/auth/presentation/widgets/snack_bar.dart';
-import 'package:tastytable/router/app_router_constants.dart';
+import 'package:tastytable/features/recipes/presentation/enum/cuisines.dart';
+import 'package:tastytable/features/recipes/presentation/pages/s_out.dart';
+import 'package:tastytable/features/recipes/presentation/widgets/home_page_recipe_view.dart';
+import 'package:tastytable/features/recipes/presentation/widgets/home_page_title.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,61 +12,19 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: ListView(
             children: [
-              Text("Explore"),
-              Text('What would you like to eat?'),
-              Container(
-                height: 100,
-                width: double.infinity,
-                color: Colors.red,
+              SizedBox(
+                height: 20,
               ),
-              Text('Kerala Cusine'),
-              Container(
-                height: 250,
-                child: ListView.builder(
-                  padding: EdgeInsets.all(5),
-                  // shrinkWrap: true,
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.all(5),
-                      width: 200,
-                      height: 200,
-                      color: Colors.blue,
-                    );
-                  },
-                ),
-              ),
-              Text('Kerala Cusine'),
-              Container(
-                height: 250,
-                child: ListView.builder(
-                  padding: EdgeInsets.all(5),
-                  // shrinkWrap: true,
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.all(5),
-                      width: 200,
-                      height: 200,
-                      color: Colors.blue,
-                    );
-                  },
-                ),
-              ),
+              HomePageTitle(),
+              HomePageRecipeView(cuisines: Cuisines.british,context: context),
+              HomePageRecipeView(cuisines: Cuisines.italian,context: context),
+              HomePageRecipeView(cuisines: Cuisines.indian ,context: context),
               ElevatedButton(
                   onPressed: () {
-                    Either<String, String> result = SignoutUsecase().call();
-                    result.fold(
-                      (l) =>
-                          authSnackBar(context: context, state: AuthError(l)),
-                      (r) =>
-                          context.goNamed(AppRouterConstants.signInRouteName),
-                    );
+                    signOutFunction(context: context);
                   },
                   child: const Text('signout')),
             ],

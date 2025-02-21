@@ -37,23 +37,24 @@ class GoogleSignInButton extends StatelessWidget {
         BlocListener<GoogleSignInCubit, GoogleSignInState>(
           listener: (context, state) {
             if (state == GoogleSignInState.loading) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return const AlertDialog(
-                    backgroundColor: Colors.transparent,
-                    content: SizedBox(
-                      width: 50,
-                      height: 100,
-                      child: LoadingIndicator(
-                        colors: [Colors.white],
-                        indicatorType: Indicator.ballPulse,
-                        backgroundColor: Colors.transparent,
-                      ),
-                    ),
-                  );
-                },
-              );
+              showLoadingDialog(context);
+              // showDialog(
+              //   context: context,
+              //   builder: (context) {
+              //     return const AlertDialog(
+              //       backgroundColor: Colors.transparent,
+              //       content: SizedBox(
+              //         width: 50,
+              //         height: 100,
+              //         child: LoadingIndicator(
+              //           colors: [Colors.white],
+              //           indicatorType: Indicator.ballPulse,
+              //           backgroundColor: Colors.transparent,
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // );
             }
             if (state == GoogleSignInState.success) {
               context.goNamed(AppRouterConstants.homeRouteName);
@@ -74,4 +75,25 @@ class GoogleSignInButton extends StatelessWidget {
       ],
     );
   }
+}
+
+void showLoadingDialog(BuildContext context) {
+  showGeneralDialog(
+    context: context,
+    barrierDismissible: false,
+    transitionDuration: const Duration(milliseconds: 300),
+    pageBuilder: (context, animation, secondaryAnimation) {
+      return const Center(
+        child: SizedBox(
+          width: 200,
+          height: 50,
+          child: LoadingIndicator(
+            colors: [Colors.white],
+            indicatorType: Indicator.ballPulse,
+            backgroundColor: Colors.transparent,
+          ),
+        ),
+      );
+    },
+  );
 }

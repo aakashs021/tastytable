@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
+import 'package:tastytable/features/recipes/presentation/pages/view_all_page.dart';
 import 'package:tastytable/router/app_router_constants.dart';
 import 'package:tastytable/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:tastytable/features/auth/presentation/pages/sign_up_page.dart';
@@ -15,7 +17,6 @@ class AppRouter {
     }
   }
 
-
   static final GoRouter router = GoRouter(
     initialLocation: initalPage(),
     routes: <RouteBase>[
@@ -28,13 +29,16 @@ class AppRouter {
         name: AppRouterConstants.homeRouteName,
         path: '/home',
         builder: (context, state) => const HomePage(),
-        redirect: (context, state) {
-          String? deepLink = state.extra?.toString();
-          if(deepLink!=null){
-            return '/home';
-          }
-          return '/signin';
-        },
+        routes: [
+          GoRoute(
+            name: AppRouterConstants.viewAllPageRouteName,
+            path: '/viewAll/:title',
+            builder: (context, state) => ViewAllPage(
+              title: state.pathParameters['title']!,
+              recipes: state.extra as List<RecipeHomeModel>,
+            ),
+            )
+        ]
       ),
       GoRoute(
         name: AppRouterConstants.signInRouteName,

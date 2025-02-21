@@ -1,5 +1,5 @@
 icons_launcher:
-  image_path: "assets/images/5.jpeg"
+  image_path: "assets/images/logo.jpeg"
   platforms:
     android:
       enable: true

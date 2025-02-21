@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:tastytable/core/usecase/usecase.dart';
+import 'package:tastytable/core/usecase/auth/usecase.dart';
 import 'package:tastytable/features/auth/data/model/user_model.dart';
 import 'package:tastytable/features/auth/domain/repository/auth_repository.dart';
 import 'package:tastytable/service_locator.dart';

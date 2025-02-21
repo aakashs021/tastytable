@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "313981550890-t8hfqdnj50fvfb4m2g7jivt89v6gn6po.apps.googleusercontent.com",
+          "client_id": "313981550890-i2vngk9q8pn9em9h5dn36n19bqn75ihj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.tastytable",
-            "certificate_hash": "a120152ce1460ac2841b3dab7b29c9fab9f4369e"
+            "certificate_hash": "60689290b375832f4eed11c46ed08a10e607d447"
           }
         },
         {

@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:tastytable/core/usecase/usecase_get_user.dart';
+import 'package:tastytable/core/usecase/auth/usecase_get_user.dart';
 import 'package:tastytable/features/auth/data/model/user_model.dart';
 import 'package:tastytable/features/auth/domain/repository/auth_repository.dart';
 import 'package:tastytable/features/auth/domain/repository/firestore_repository.dart';
