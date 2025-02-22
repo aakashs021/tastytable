@@ -4,12 +4,19 @@ import 'package:go_router/go_router.dart';
 import 'package:tastytable/features/settings/presentation/bloc/user_name_bloc.dart';
 import 'package:tastytable/features/settings/presentation/bloc/user_name_event.dart';
 
-class EditNamePage extends StatelessWidget {
+class EditNamePage extends StatefulWidget {
   final String userName;
   EditNamePage({super.key, required this.userName});
- final TextEditingController controller = TextEditingController();
 
-   var formKey = GlobalKey<FormState>();
+  @override
+  State<EditNamePage> createState() => _EditNamePageState();
+}
+
+class _EditNamePageState extends State<EditNamePage> {
+  final TextEditingController controller = TextEditingController();
+
+  var formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -31,7 +38,7 @@ class EditNamePage extends StatelessWidget {
               Text('Current Username'),
               TextField(
                 readOnly: true,
-                controller: TextEditingController(text: userName),
+                controller: TextEditingController(text: widget.userName),
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),

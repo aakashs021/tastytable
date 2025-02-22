@@ -7,5 +7,6 @@ static const String settingsRouteName = "settings";
 static const String privacyAndPolicyRouteName = "privacy&policy";
 static const String editPasswordRouteName = "editpassword";
 static const String editNameRouteName = "editname";
+static const String deleteAccountPageRouteName = "deleteaccount";
 
 }

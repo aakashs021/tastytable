@@ -15,19 +15,21 @@ Widget settingsTextAndName(
     padding: const EdgeInsets.only(left: 10.0),
     child: GestureDetector(
       onTap: () async {
-        _checkingSignInMethodAlert(context);
-        bool check = false;
         if (checkLogin != null) {
+          _checkingSignInMethodAlert(context);
+          bool check = false;
           check = checkLogin();
           await Future.delayed(Duration(seconds: 1), () => context.pop());
-        }
-        if (check) {
-          bool? procedd = await _changePasswordAlertDialog(context);
-          if (procedd == true) {
-            GoRouter.of(context).pushNamed(pageName);
+          if (check) {
+            bool? procedd = await _changePasswordAlertDialog(context);
+            if (procedd == true) {
+              GoRouter.of(context).pushNamed(pageName);
+            }
+          } else {
+            _showCannotChangePasswordDialog(context);
           }
         } else {
-          _showCannotChangePasswordDialog(context);
+          GoRouter.of(context).pushNamed(pageName);
         }
       },
       child: Row(

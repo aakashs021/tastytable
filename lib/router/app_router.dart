@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
 import 'package:tastytable/features/recipes/presentation/pages/view_all_page.dart';
+import 'package:tastytable/features/settings/presentation/pages/delete_account_page.dart';
 import 'package:tastytable/features/settings/presentation/pages/edit_name.dart';
 import 'package:tastytable/features/settings/presentation/pages/edit_password.dart';
 import 'package:tastytable/features/settings/presentation/pages/privacy_and_policy.dart';
@@ -111,8 +112,12 @@ class AppRouter {
       },
     );
   },
-  builder: (context, state) => const SettingPage(),
+  builder: (context, state) =>  SettingPage(),
   routes: [
+    GoRoute(path: 'deleteaccount',
+      name: AppRouterConstants.deleteAccountPageRouteName,
+      builder: (context, state) => DeleteAccountPage(),
+    ),
     GoRoute(path: 'editname/:username',
     name: AppRouterConstants.editNameRouteName,
     builder: (context, state) => EditNamePage(userName: state.pathParameters['username']!),

@@ -58,16 +58,74 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => RecipesCubitIndian(),
           ),
-          BlocProvider(create: (context) => UserNameBloc(),)
+          BlocProvider(
+            create: (context) => UserNameBloc(),
+          )
         ],
         child: MaterialApp.router(
-          theme: ThemeData(
-            scaffoldBackgroundColor: Colors.white,
-            primaryColor: Colors.white,
-          appBarTheme: AppBarTheme(backgroundColor: Colors.white)
-          ),
+          // darkTheme: darkTheme,
+          theme: lightTheme,
+          // themeMode: ThemeMode.system,
+          // theme: ThemeData(
+          //     scaffoldBackgroundColor: Colors.white,
+          //     primaryColor: Colors.white,
+          //     appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+          //     dialogTheme: DialogTheme(backgroundColor: Colors.white,),
+          //     dialogBackgroundColor: Colors.white),
           debugShowCheckedModeBanner: false,
           routerConfig: router,
         ));
   }
 }
+
+final ThemeData lightTheme = ThemeData(
+  scaffoldBackgroundColor: Colors.white,
+  primaryColor: Colors.blue, // Adjust for your primary theme color
+  appBarTheme: AppBarTheme(
+    backgroundColor: Colors.white,
+    iconTheme: IconThemeData(color: Colors.black), // AppBar icon color
+    titleTextStyle: TextStyle(color: Colors.black), // AppBar title color
+  ),
+  dialogTheme: DialogTheme(backgroundColor: Colors.white),
+  dialogBackgroundColor: Colors.white,
+  // textTheme: TextTheme(
+  //   bodyText1: TextStyle(color: Colors.black),
+  //   bodyText2: TextStyle(color: Colors.black),
+  //   headline1: TextStyle(color: Colors.black),
+  //   headline2: TextStyle(color: Colors.black),
+  //   headline3: TextStyle(color: Colors.black),
+  //   subtitle1: TextStyle(color: Colors.black),
+  //   subtitle2: TextStyle(color: Colors.black),
+  // ),
+  buttonTheme: ButtonThemeData(
+    buttonColor: Colors.blue, // Default button color for light theme
+    textTheme: ButtonTextTheme.primary,
+  ),
+  // Define more theme elements like InputDecorationTheme for text fields, etc.
+);
+
+final ThemeData darkTheme = ThemeData(
+  scaffoldBackgroundColor: Colors.black,
+  primaryColor: Colors.blueGrey, // Adjust dark theme primary color
+  appBarTheme: AppBarTheme(
+    backgroundColor: Colors.black,
+    iconTheme: IconThemeData(color: Colors.white), // AppBar icon color
+    titleTextStyle: TextStyle(color: Colors.white), // AppBar title color
+  ),
+  dialogTheme: DialogTheme(backgroundColor: Colors.black),
+  dialogBackgroundColor: Colors.black,
+  // textTheme: TextTheme(
+  //   bodyText1: TextStyle(color: Colors.white),
+  //   bodyText2: TextStyle(color: Colors.white),
+  //   headline1: TextStyle(color: Colors.white),
+  //   headline2: TextStyle(color: Colors.white),
+  //   headline3: TextStyle(color: Colors.white),
+  //   subtitle1: TextStyle(color: Colors.white),
+  //   subtitle2: TextStyle(color: Colors.white),
+  // ),
+  buttonTheme: ButtonThemeData(
+    buttonColor: Colors.blueGrey, // Default button color for dark theme
+    textTheme: ButtonTextTheme.primary,
+  ),
+  // Customize dark theme input fields, sliders, etc.
+);
