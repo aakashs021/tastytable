@@ -22,7 +22,7 @@ Widget HomePageRecipeView({required Cuisines cuisines,required BuildContext cont
             alignment: Alignment.topLeft,
             child: pageSubType(cuisines: cuisines, context: context),),
         SizedBox(
-          height: 170,
+          height: 200,
           child: pageType(cuisines: cuisines),
         ),
       ],

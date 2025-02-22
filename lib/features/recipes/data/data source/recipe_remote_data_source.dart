@@ -16,9 +16,7 @@ class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
       for (Map<String, dynamic> food in result) {
         RecipeHomeModel model = RecipeHomeModel.fromJson(food);
         finalList.add(model);
-        // print(model.id);
       }
-      // print(result);
       return finalList;
     } catch (e) {
       throw Exception(e);

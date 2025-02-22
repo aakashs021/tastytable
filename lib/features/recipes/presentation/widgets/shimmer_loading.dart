@@ -32,7 +32,7 @@ Widget shimmerLoading() {
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   padding: EdgeInsets.all(5),
-                  width: 180,
+                  width: 200,
                   height: 20,
                   decoration: BoxDecoration(
                     color: Colors.white,

@@ -10,16 +10,15 @@ import 'package:tastytable/features/recipes/presentation/widgets/empty_data_text
 import 'package:tastytable/features/recipes/presentation/widgets/shimmer_loading.dart';
 
 class HomePageRecipeListItalian extends StatelessWidget {
- final Cuisines cusines;
+  final Cuisines cusines;
   HomePageRecipeListItalian({super.key, required this.cusines});
 
   @override
   Widget build(BuildContext context) {
-        context.read<RecipeCubitItalian>().getRecipes();
+    context.read<RecipeCubitItalian>().getRecipes();
 
     return BlocBuilder<RecipeCubitItalian, RecipeCubitState>(
       builder: (context, state) {
-        print('inside start --------------------');
         if (state is RecipeCubitLoading) {
           return shimmerLoading();
         }
@@ -46,11 +45,12 @@ class HomePageRecipeListItalian extends StatelessWidget {
                   Positioned.fill(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: CachedNetworkImage(imageUrl: recipe.image,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) {
-                        return shimmerLoading();
-                      },
+                      child: CachedNetworkImage(
+                        imageUrl: recipe.image,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) {
+                          return shimmerLoading();
+                        },
                       ),
                     ),
                   ),

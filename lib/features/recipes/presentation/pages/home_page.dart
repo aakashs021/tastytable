@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tastytable/features/recipes/presentation/enum/cuisines.dart';
-import 'package:tastytable/features/recipes/presentation/pages/s_out.dart';
 import 'package:tastytable/features/recipes/presentation/widgets/home_page_recipe_view.dart';
 import 'package:tastytable/features/recipes/presentation/widgets/home_page_title.dart';
 
@@ -18,15 +17,11 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              HomePageTitle(),
+              HomePageTitle(context: context),
               HomePageRecipeView(cuisines: Cuisines.british,context: context),
               HomePageRecipeView(cuisines: Cuisines.italian,context: context),
               HomePageRecipeView(cuisines: Cuisines.indian ,context: context),
-              ElevatedButton(
-                  onPressed: () {
-                    signOutFunction(context: context);
-                  },
-                  child: const Text('signout')),
+             
             ],
           ),
         ),

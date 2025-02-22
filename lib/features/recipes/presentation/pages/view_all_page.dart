@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
-import 'package:tastytable/features/recipes/presentation/value_notifier/text_loading_val_noti.dart';
 
 class ViewAllPage extends StatelessWidget {
   final String title;
@@ -43,7 +42,6 @@ class ViewAllPage extends StatelessWidget {
                       fadeOutDuration: Duration(milliseconds: 500),
                       imageBuilder: (context, imageProvider) {
                         isloaded.value=true;
-                        // print('run');
                         return  Image(image: imageProvider, fit: BoxFit.fill);
                       },
                     ),

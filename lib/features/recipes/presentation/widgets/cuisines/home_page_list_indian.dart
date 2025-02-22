@@ -20,7 +20,6 @@ class HomePageRecipeListIndian extends StatelessWidget {
     return BlocBuilder<RecipesCubitIndian, RecipeCubitState>(
       builder: (context, state) {
         if (state is RecipeCubitLoading) {
-          print('l');
           return shimmerLoading();
         }
         if (state is RecipeCubitFailure) {

@@ -10,9 +10,9 @@ import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipes_c
 import 'package:tastytable/features/recipes/presentation/cubit/view_all_page/view_all_page_cubit_british.dart';
 import 'package:tastytable/features/recipes/presentation/cubit/view_all_page/view_all_page_cubit_indian.dart';
 import 'package:tastytable/features/recipes/presentation/cubit/view_all_page/view_all_page_text_cubit_italian.dart';
+import 'package:tastytable/features/settings/presentation/bloc/user_name_bloc.dart';
 import 'package:tastytable/native_splash_screen.dart';
 import 'package:tastytable/router/app_router.dart';
-import 'package:tastytable/core/configs/theme/app_theme.dart';
 import 'package:tastytable/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:tastytable/firebase_options.dart';
 import 'package:tastytable/service_locator.dart';
@@ -58,9 +58,14 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => RecipesCubitIndian(),
           ),
+          BlocProvider(create: (context) => UserNameBloc(),)
         ],
         child: MaterialApp.router(
-          theme: AppTheme.lightTheme,
+          theme: ThemeData(
+            scaffoldBackgroundColor: Colors.white,
+            primaryColor: Colors.white,
+          appBarTheme: AppBarTheme(backgroundColor: Colors.white)
+          ),
           debugShowCheckedModeBanner: false,
           routerConfig: router,
         ));

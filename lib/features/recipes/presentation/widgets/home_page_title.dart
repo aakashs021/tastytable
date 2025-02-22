@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tastytable/router/app_router_constants.dart';
 
-Widget HomePageTitle() {
+Widget HomePageTitle({required BuildContext context}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisSize: MainAxisSize.min,
@@ -16,13 +18,18 @@ Widget HomePageTitle() {
               Text('What would you like to eat?'),
             ],
           ),
-          CircleAvatar(
-            backgroundColor: Colors.grey.shade100,
-            radius: 20,
-            child: Icon(
-              color: Colors.black,
-              Icons.person_outline_outlined,
-              size: 25,
+          InkWell(
+            onTap: () {
+              GoRouter.of(context).pushNamed(AppRouterConstants.settingsRouteName);
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.grey.shade100,
+              radius: 20,
+              child: Icon(
+                color: Colors.black,
+                Icons.settings,
+                size: 25,
+              ),
             ),
           )
         ],

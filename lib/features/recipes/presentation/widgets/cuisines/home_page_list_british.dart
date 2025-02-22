@@ -10,7 +10,7 @@ import 'package:tastytable/features/recipes/presentation/widgets/empty_data_text
 import 'package:tastytable/features/recipes/presentation/widgets/shimmer_loading.dart';
 
 class HomePageRecipeListBritish extends StatelessWidget {
- final Cuisines cusines;
+  final Cuisines cusines;
   HomePageRecipeListBritish({super.key, required this.cusines});
 
   @override
@@ -44,11 +44,13 @@ class HomePageRecipeListBritish extends StatelessWidget {
                   Positioned.fill(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: CachedNetworkImage(imageUrl: recipe.image,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) {
-                        return shimmerLoading();
-                      },
+                      child: CachedNetworkImage(
+                        height: 200,
+                        imageUrl: recipe.image,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) {
+                          return shimmerLoading();
+                        },
                       ),
                     ),
                   ),
