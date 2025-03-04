@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -23,7 +24,18 @@ Widget settingsTextAndName(
           if (check) {
             bool? procedd = await _changePasswordAlertDialog(context);
             if (procedd == true) {
-              GoRouter.of(context).pushNamed(pageName);
+              var result = await GoRouter.of(context).pushNamed(pageName);
+              if (result == true) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  dismissDirection: DismissDirection.horizontal,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  content: AwesomeSnackbarContent(
+                      title: 'Password Changed',
+                      message: 'Your password id changed.',
+                      contentType: ContentType.success),
+                ));
+              }
             }
           } else {
             _showCannotChangePasswordDialog(context);
@@ -49,9 +61,9 @@ Future<bool?> _changePasswordAlertDialog(BuildContext context) async {
     builder: (context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20), // Rounded corners
+          borderRadius: BorderRadius.circular(20),
         ),
-        backgroundColor: Colors.white, // Clean white background
+        backgroundColor: Colors.white,
         title: Text(
           'Are you sure?',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -117,9 +129,8 @@ void _showCannotChangePasswordDialog(BuildContext context) {
     builder: (context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20), // Rounded corners
+          borderRadius: BorderRadius.circular(20),
         ),
-        backgroundColor: Colors.white, // Clean white background
         title: Text(
           'Cannot Change Password',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -131,10 +142,10 @@ void _showCannotChangePasswordDialog(BuildContext context) {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // Close the dialog
+              Navigator.of(context).pop();
             },
             style: TextButton.styleFrom(
-              foregroundColor: Colors.blue, // Blue text for "OK"
+              foregroundColor: Colors.blue,
             ),
             child: Text('OK'),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 
 Widget SettingsUserNameShimmer(){
   return Positioned(
@@ -9,8 +10,8 @@ Widget SettingsUserNameShimmer(){
             children: [
               Positioned(
                 child: Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
+                  baseColor: AppColors.shimmerBaseColor,
+                  highlightColor: AppColors.shimmerHighlightColor,
                   period:
                       Duration(milliseconds: 1500), // Speed of shimmer effect
                   child: Container(
@@ -18,7 +19,7 @@ Widget SettingsUserNameShimmer(){
                     height: 30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
+                      color: AppColors.shimmerContainerColor,
                     ),
                   ),
                 ),

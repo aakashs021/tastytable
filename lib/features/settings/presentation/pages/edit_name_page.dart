@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quickalert/quickalert.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/settings/presentation/bloc/user_name_bloc.dart';
 import 'package:tastytable/features/settings/presentation/bloc/user_name_event.dart';
 
@@ -42,10 +44,10 @@ class _EditNamePageState extends State<EditNamePage> {
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Colors.black)),
+                        borderSide: BorderSide(color: AppColors.settingsCommonTextFeildBorderColor)),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Colors.black)),
+                        borderSide: BorderSide(color: AppColors.settingsCommonTextFeildBorderColor)),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20))),
               ),
@@ -76,11 +78,17 @@ class _EditNamePageState extends State<EditNamePage> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue,
                             foregroundColor: Colors.white),
-                        onPressed: () {
+                        onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            context.read<UserNameBloc>().add(
-                                NameUpdateEvent(newUserName: controller.text));
-                            GoRouter.of(context).pop(true);
+                            var result = await quickAlerDialogEditName(
+                                context: context,
+                                title:
+                                    "Are you sure you want to change your name?",
+                                newUserName: controller.text);
+                            print(result);
+                            if (result == true) {
+                              GoRouter.of(context).pop(result);
+                            }
                           }
                         },
                         child: Text('Edit'))),
@@ -91,4 +99,28 @@ class _EditNamePageState extends State<EditNamePage> {
       ),
     );
   }
+}
+
+Future<bool?> quickAlerDialogEditName(
+    {required BuildContext context,
+    required String title,
+    required String newUserName}) async {
+  bool? isconfirm;
+  await QuickAlert.show(
+    context: context,
+    type: QuickAlertType.confirm,
+    text: title,
+    onCancelBtnTap: () {
+      isconfirm = false;
+      context.pop(false);
+    },
+    onConfirmBtnTap: () {
+      context
+          .read<UserNameBloc>()
+          .add(NameUpdateEvent(newUserName: newUserName));
+      isconfirm = true;
+      context.pop(true);
+    },
+  );
+  return isconfirm;
 }

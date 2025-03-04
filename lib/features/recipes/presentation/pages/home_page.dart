@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter/services.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/recipes/presentation/enum/cuisines.dart';
 import 'package:tastytable/features/recipes/presentation/widgets/home_page_recipe_view.dart';
 import 'package:tastytable/features/recipes/presentation/widgets/home_page_title.dart';
@@ -23,18 +24,20 @@ class HomePage extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false), // Don't pop
-                child: Text(style: TextStyle(color: Colors.black), 'Cancel'),
+                child: Text(style: TextStyle(color: AppColors.recipePopUpCancelTextColor), 'Cancel'),
               ),
               TextButton(
-                onPressed: () => Navigator.of(context).pop(true), // Pop
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                  // Pop
+                },
                 child: Text(style: TextStyle(color: Colors.red), 'Exit'),
               ),
             ],
           ),
         );
-        // If user presses "Exit", return true to pop the screen
         if(shouldPop==true){
-          context.pop();
+          SystemNavigator.pop();
         }
       },
       child: Scaffold(

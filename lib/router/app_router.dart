@@ -1,12 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tastytable/features/detail/presentation/pages/detail_page.dart';
 import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
 import 'package:tastytable/features/recipes/presentation/pages/view_all_page.dart';
+import 'package:tastytable/features/search/presentation/pages/search_page.dart';
 import 'package:tastytable/features/settings/presentation/pages/delete_account_page.dart';
-import 'package:tastytable/features/settings/presentation/pages/edit_name.dart';
-import 'package:tastytable/features/settings/presentation/pages/edit_password.dart';
-import 'package:tastytable/features/settings/presentation/pages/privacy_and_policy.dart';
+import 'package:tastytable/features/settings/presentation/pages/delete_confirm_page.dart';
+import 'package:tastytable/features/settings/presentation/pages/edit_name_page.dart';
+import 'package:tastytable/features/settings/presentation/pages/edit_password_page.dart';
+import 'package:tastytable/features/settings/presentation/pages/password_check_page.dart';
+import 'package:tastytable/features/settings/presentation/pages/privacy_and_policy_page.dart';
 import 'package:tastytable/router/app_router_constants.dart';
 import 'package:tastytable/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:tastytable/features/auth/presentation/pages/sign_up_page.dart';
@@ -30,6 +34,10 @@ class AppRouter {
           path: '/home',
           builder: (context, state) => const HomePage(),
           routes: [
+            GoRoute(path: '/searchpage',
+            name: AppRouterConstants.searchPageRouteName,
+            builder: (context, state) => SearchPage(),
+            ),
             // View all page with page slid transition
             GoRoute(
               name: AppRouterConstants.viewAllPageRouteName,
@@ -86,9 +94,15 @@ class AppRouter {
                   recipes: recipes ?? [],
                 );
               },
+              routes: [
+                GoRoute(path: '/detailpage/:id',
+  name: AppRouterConstants.detailViewAllPageRouteName,
+  builder: (context, state) => DetailPage(id: state.pathParameters['id']!),
+)
+              ]
             ),
             GoRoute(
-  name: "settings",
+  name: AppRouterConstants.settingsRouteName,
   path: '/settings',
   pageBuilder: (context, state) {
     return CustomTransitionPage(
@@ -114,15 +128,30 @@ class AppRouter {
   },
   builder: (context, state) =>  SettingPage(),
   routes: [
-    GoRoute(path: 'deleteaccount',
+    GoRoute(path: '/deleteaccount',
       name: AppRouterConstants.deleteAccountPageRouteName,
       builder: (context, state) => DeleteAccountPage(),
+      routes: [
+        GoRoute(path: '/deleteaccountconfirm',
+        name: AppRouterConstants.deleteAccountConfirmPageRouteName,
+        builder: (context, state) => DeleteAccountConfirmPage(reason: state.extra as String,),
+        routes: [
+          GoRoute(path: '/passwordcheck/:email',
+          name: AppRouterConstants.checkPasswordPageRouteName,
+          builder: (context, state) => PasswordCheckPage(email: state.pathParameters['email']!,
+            reason: state.extra as String
+          ),
+          )
+        ]
+        ),
+        
+      ]
     ),
-    GoRoute(path: 'editname/:username',
+    GoRoute(path: '/editname/:username',
     name: AppRouterConstants.editNameRouteName,
     builder: (context, state) => EditNamePage(userName: state.pathParameters['username']!),
     ),
-    GoRoute(path: 'editpassword',
+    GoRoute(path: '/editpassword',
     name: AppRouterConstants.editPasswordRouteName,
     builder: (context, state) => EditPasswordPage(),
     ),
@@ -134,6 +163,10 @@ class AppRouter {
     
   ]
 ),
+GoRoute(path: '/detailpage/:id',
+  name: AppRouterConstants.detailHomePageRouteName,
+  builder: (context, state) => DetailPage(id: state.pathParameters['id']!),
+)
 
           ]),
       GoRoute(

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
 import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipe_state.dart';
 import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipes_cubit_italian.dart';
@@ -68,7 +69,7 @@ class HomePageRecipeListItalian extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.white),
+                                color: AppColors.recipeFoodTitleColor),
                             recipe.title),
                       )),
                 ],

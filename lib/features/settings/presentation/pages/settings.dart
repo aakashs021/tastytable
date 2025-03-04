@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/recipes/presentation/pages/s_out.dart';
 import 'package:tastytable/features/settings/presentation/bloc/user_name_bloc.dart';
 import 'package:tastytable/features/settings/presentation/bloc/user_name_event.dart';
@@ -96,8 +97,9 @@ class _SettingPageState extends State<SettingPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white),
+                        backgroundColor: AppColors.settingsSignoutBackgroundColor,
+                        foregroundColor: AppColors.settingsSignoutForegroundColor,
+                        ),
                     onPressed: () {
                       signOutFunction(context: context);
                     },

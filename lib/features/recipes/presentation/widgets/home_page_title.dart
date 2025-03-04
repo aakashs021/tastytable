@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/router/app_router_constants.dart';
 
 Widget HomePageTitle({required BuildContext context}) {
@@ -20,13 +21,14 @@ Widget HomePageTitle({required BuildContext context}) {
           ),
           InkWell(
             onTap: () {
-              GoRouter.of(context).pushNamed(AppRouterConstants.settingsRouteName);
+              GoRouter.of(context)
+                  .pushNamed(AppRouterConstants.settingsRouteName);
             },
             child: CircleAvatar(
-              backgroundColor: Colors.grey.shade100,
+              backgroundColor: AppColors.recipeSettingsIconBackgroundColor,
               radius: 20,
               child: Icon(
-                color: Colors.black,
+                color: AppColors.recipeSettingsIconColor,
                 Icons.settings,
                 size: 25,
               ),
@@ -40,28 +42,54 @@ Widget HomePageTitle({required BuildContext context}) {
       Container(
         height: 50,
         width: double.infinity,
-        child: TextField(
-          decoration: InputDecoration(
-            hintText: 'Search',
-            border: OutlineInputBorder(
-              borderSide: BorderSide(),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            suffixIcon: Container(
-              margin: EdgeInsets.all(4),
-              height: 60,
-              width: 50,
-              decoration: BoxDecoration(
-                color: Colors.green.shade300,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
+        child: InkWell(
+          onTap: () {
+            GoRouter.of(context)
+                .pushNamed(AppRouterConstants.searchPageRouteName);
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 5),
+            padding: EdgeInsets.only(left: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                  color: Colors.black), // Border similar to TextField
+              color: Colors.white, // Set the background color
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withAlpha(50),
+                  spreadRadius: 3, // Spread of the shadow
+                  blurRadius: 5, // Blur radius for the shadow
+                  offset:
+                      Offset(0, 4), // Position of the shadow (vertical shift)
                 ),
-              ),
-              child: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Search',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 5, top: 3, bottom: 3),
+                  height: 60,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: AppColors.recipeSearchIconContainerColor,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.search,
+                    color: AppColors.recipeSearchIconColor,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

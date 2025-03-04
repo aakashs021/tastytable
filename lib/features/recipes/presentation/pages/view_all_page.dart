@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
 
 class ViewAllPage extends StatelessWidget {
@@ -13,7 +15,13 @@ class ViewAllPage extends StatelessWidget {
     ValueNotifier<bool> isloaded = ValueNotifier<bool>(false);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(title),
+        leading: IconButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+            icon: Icon(Icons.arrow_back_ios)),
       ),
       body: ListView.separated(
         itemCount: recipes.length,
@@ -41,29 +49,32 @@ class ViewAllPage extends StatelessWidget {
                       },
                       fadeOutDuration: Duration(milliseconds: 500),
                       imageBuilder: (context, imageProvider) {
-                        isloaded.value=true;
-                        return  Image(image: imageProvider, fit: BoxFit.fill);
+                        isloaded.value = true;
+                        return Image(image: imageProvider, fit: BoxFit.fill);
                       },
                     ),
                   ),
                 ),
-                ValueListenableBuilder(valueListenable: isloaded,
-                 builder: (context, value, child) {
-                  return value? Positioned(
-                  left: 10,
-                  top: 10,
-                  right: 10,
-                  child: Text(
-                      maxLines: 1,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          fontSize: 20,
-                          overflow: TextOverflow.ellipsis),
-                      recipe.title),
-                ):SizedBox();
-                },),
-               
+                ValueListenableBuilder(
+                  valueListenable: isloaded,
+                  builder: (context, value, child) {
+                    return value
+                        ? Positioned(
+                            left: 10,
+                            top: 10,
+                            right: 10,
+                            child: Text(
+                                maxLines: 1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.viewAllRecipeTitleColor,
+                                    fontSize: 20,
+                                    overflow: TextOverflow.ellipsis),
+                                recipe.title),
+                          )
+                        : SizedBox();
+                  },
+                ),
               ],
             ),
           );
@@ -73,18 +84,17 @@ class ViewAllPage extends StatelessWidget {
   }
 }
 
-
 class ViewAllShimmerLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+      baseColor: AppColors.shimmerBaseColor,
+      highlightColor: AppColors.shimmerHighlightColor,
       child: Container(
         width: double.infinity,
         height: 250,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.shimmerContainerColor,
           borderRadius: BorderRadius.circular(20),
         ),
       ),

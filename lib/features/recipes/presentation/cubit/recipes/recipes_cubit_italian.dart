@@ -14,7 +14,7 @@ class RecipeCubitItalian extends Cubit<RecipeCubitState> {
     emit(RecipeCubitLoading());
 
     Either<String, List<RecipeHomeModel>> result =
-        await ServiceLocator.sl<GetItalianCusineUsecase>().call(cusine: "Italian");
+        await ServiceLocator.sl<GetCusineUsecase>().call(cusine: "Italian");
 
     result.fold(
       (error) => emit(RecipeCubitFailure()), 

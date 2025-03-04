@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'dart:math';
+
+import 'package:tastytable/features/settings/presentation/cubit/theme_cubit.dart';
 
 class AnimatedToggleSwitch extends StatefulWidget {
   @override
@@ -9,9 +12,7 @@ class AnimatedToggleSwitch extends StatefulWidget {
 
 class _AnimatedToggleSwitchState extends State<AnimatedToggleSwitch>
     with TickerProviderStateMixin {
-  bool isSwitched = false;
   late AnimationController _animationController;
-  bool _isInitialSwitch = true; // To track initial toggle click
 
   @override
   void initState() {
@@ -29,26 +30,16 @@ class _AnimatedToggleSwitchState extends State<AnimatedToggleSwitch>
   }
 
   void _toggleSwitch() {
-    if (_isInitialSwitch) {
-      setState(() {
-        _isInitialSwitch = false;
-      });
-      Future.delayed(Duration(milliseconds: 100), () {
-        setState(() {
-          isSwitched = !isSwitched;
-        });
-      });
-    } else {
-      setState(() {
-        isSwitched = !isSwitched;
-      });
-    }
+    context.read<ThemeCubit>().toggleTheme(); // Toggle theme using Cubit
   }
 
   @override
   Widget build(BuildContext context) {
+    final isSwitched = context.watch<ThemeCubit>().state ==
+        ThemeMode.dark; // Get current theme mode
+
     return GestureDetector(
-      onTap: _toggleSwitch, // Using the delayed toggle logic here
+      onTap: _toggleSwitch,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
         height: 30.0,

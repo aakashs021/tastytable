@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 
 class PrivacyAndPolicy extends StatelessWidget {
   const PrivacyAndPolicy({super.key});
@@ -14,7 +15,7 @@ class PrivacyAndPolicy extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: AppColors.privacyAndPolicyContainerBackgroundColor,
                 borderRadius: BorderRadius.circular(15)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,19 +25,17 @@ class PrivacyAndPolicy extends StatelessWidget {
                     Icon(
                       Icons.lock,
                       size: 35,
-                      color: Colors.grey,
+                      color: AppColors.privacyAndPolicyLockIconColor,
                     ),
                     Text(
                       'Privacy and policy',
                       style: TextStyle(fontSize: 25),
                     )
-                    // text(name: 'Privacy and policy', fsize: 20),
                   ],
                 ),
                 Text(
                     style: TextStyle(fontSize: 17),
                     "Welcome to Tasty Table! Your privacy is crucial to us, and this Privacy Policy outlines the types of personal information we collect, how it's used, and the measures we take to protect your information. By using our app, you consent to the data practices described in this policy.")
-                // ,Text('Information Collection',style: texts,),
                 ,
                 SizedBox(
                   height: 10,
@@ -50,7 +49,6 @@ class PrivacyAndPolicy extends StatelessWidget {
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
@@ -63,7 +61,6 @@ class PrivacyAndPolicy extends StatelessWidget {
                     ownerDetailText(name: 'Email Address: '),
                     Expanded(
                       child: Container(
-                        // width: 100,
                         child: policytext(
                             data:
                                 'To contact you for updates, newsletters, and customer service purposes.'),
@@ -93,27 +90,7 @@ class PrivacyAndPolicy extends StatelessWidget {
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 8),
-                    //   child: Icon(
-                    //     Icons.circle,
-                    //     color: Colors.grey,
-                    //     size: 7,
-                    //   ),
-                    // ),
-                    // ownerDetailText(
-                    //   name: 'Phone number: ',
-                    // ),
-                    // Expanded(
-                    //   child: Container(
-                    //     // width: 100,
-                    //     child: policytext(
-                    //         data:
-                    //             ' Used for securing your account. Your password is encrypted and cannot be accessed by Tasty Table staff.'),
-                    //   ),
-                    // ),
                   ],
                 ),
                 SizedBox(
@@ -193,10 +170,10 @@ class PrivacyAndPolicy extends StatelessWidget {
 }
 
 Text policytext(
-    {required String data, double fs = 17, Color colour = Colors.black}) {
+    {required String data, double fs = 17, }) {
   return Text(
     data,
-    style: TextStyle(fontSize: fs, color: colour),
+    style: TextStyle(fontSize: fs, ),
   );
 }
 
@@ -208,6 +185,6 @@ Text ownerDetailText(
   return Text(
     name,
     style:
-        TextStyle(fontWeight: FontWeight.bold, fontSize: fsize, color: colour),
+        TextStyle(fontWeight: FontWeight.bold, fontSize: fsize, color: AppColors.privacyAndPolicyOwnerTextColor),
   );
 }

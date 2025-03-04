@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 
 Widget shimmerLoading() {
   return ListView.builder(
@@ -14,11 +15,11 @@ Widget shimmerLoading() {
           children: [
             Positioned.fill(
               child: Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
+                baseColor: AppColors.shimmerBaseColor,
+                highlightColor: AppColors.shimmerHighlightColor,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.shimmerContainerColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
@@ -27,15 +28,15 @@ Widget shimmerLoading() {
             Positioned(
               bottom: 0,
               child: Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
+                baseColor: AppColors.shimmerBaseColor,
+                highlightColor: AppColors.shimmerHighlightColor,
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   padding: EdgeInsets.all(5),
                   width: 200,
                   height: 20,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.shimmerContainerColor,
                     borderRadius: BorderRadius.circular(25),
                   ),
                 ),

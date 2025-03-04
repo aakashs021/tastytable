@@ -4,7 +4,7 @@ import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
 import 'package:tastytable/features/recipes/domain/repository/recipe_remote_repo.dart';
 import 'package:tastytable/service_locator.dart';
 
-class GetItalianCusineUsecase implements RecipeUsecase<Either<String,List<RecipeHomeModel>>,String>{
+class GetCusineUsecase implements RecipeUsecase<Either<String,List<RecipeHomeModel>>,String>{
   @override
   Future<Either<String,List<RecipeHomeModel>>> call({required String cusine}) async{
     try{

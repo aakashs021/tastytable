@@ -1,5 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:tastytable/core/network/api_client.dart';
+import 'package:tastytable/core/usecase/settings/usecase_check_password_and_update.dart';
+import 'package:tastytable/core/usecase/settings/usecase_delete_account.dart';
+import 'package:tastytable/core/usecase/settings/usecase_get_login_method.dart';
+import 'package:tastytable/core/usecase/settings/usecase_settings.dart';
+import 'package:tastytable/core/usecase/settings/usecase_settings_update.dart';
 import 'package:tastytable/features/auth/data/data_source/firebase_authentication/auth_firebase_service.dart';
 import 'package:tastytable/features/auth/data/data_source/firebase_authentication/auth_firebase_service_impl.dart';
 import 'package:tastytable/features/auth/data/data_source/firebase_firestore/firebase_firestore_service.dart';
@@ -17,6 +22,9 @@ import 'package:tastytable/features/recipes/domain/usecase/get_italian_cusine_us
 import 'package:tastytable/features/settings/data/data%20sounce/settings_firebase_services.dart';
 import 'package:tastytable/features/settings/data/repository/settings_repo_impl.dart';
 import 'package:tastytable/features/settings/domain/repository/settings_repo.dart';
+import 'package:tastytable/features/settings/domain/usecase/accoun_delete_usecase.dart';
+import 'package:tastytable/features/settings/domain/usecase/check_password_and_update_usecase.dart';
+import 'package:tastytable/features/settings/domain/usecase/delete_google_account_usecase.dart';
 import 'package:tastytable/features/settings/domain/usecase/get_login_method_usecase.dart';
 import 'package:tastytable/features/settings/domain/usecase/get_user_name_usecase.dart';
 import 'package:tastytable/features/settings/domain/usecase/update_user_name_usecase.dart';
@@ -35,7 +43,6 @@ class ServiceLocator {
     sl.registerLazySingleton<FirestoreRepository>(
         () => FirestoreRepositoryImpl());
     sl.registerLazySingleton<SigninUseCase>(() => SigninUseCase());
-    // sl.registerLazySingleton<GetUserUsecase>(() => GetUserUsecase());
 
     // Api
     sl.registerLazySingleton<ApiClient>(
@@ -49,8 +56,8 @@ class ServiceLocator {
     sl.registerLazySingleton<RecipeRemoteRepo>(
       () => RecipeRemoteRepoImpl(),
     );
-    sl.registerLazySingleton<GetItalianCusineUsecase>(
-      () => GetItalianCusineUsecase(),
+    sl.registerLazySingleton<GetCusineUsecase>(
+      () => GetCusineUsecase(),
     );
 
     // Settings
@@ -59,5 +66,10 @@ class ServiceLocator {
     sl.registerLazySingleton<GetUserNameUsecase>(() => GetUserNameUsecase(),);
     sl.registerLazySingleton<UpdateUserNameUsecase>(() => UpdateUserNameUsecase(),);
     sl.registerLazySingleton<GetLoginMethodUsecase>(() => GetLoginMethodUsecase(),);
+    sl.registerLazySingleton<CheckPasswordAndUpdateUsecase>(() => CheckPasswordAndUpdateUsecase(),);
+    sl.registerLazySingleton<AccounDeleteUsecase>(() => AccounDeleteUsecase(),);
+    sl.registerLazySingleton<DeleteGoogleAccountUsecase>(() => DeleteGoogleAccountUsecase(),);
+
+    // 
   }
 }

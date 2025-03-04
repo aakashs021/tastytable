@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/router/app_router_constants.dart';
 
 class SettingsUserNameTextfeild extends StatelessWidget {
@@ -21,9 +22,7 @@ class SettingsUserNameTextfeild extends StatelessWidget {
                   final result = await GoRouter.of(context).pushNamed(
                       AppRouterConstants.editNameRouteName,
                       pathParameters: {'username': userName});
-                  print(result);
 
-                  // if(result is bool){
                   if (result == true) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       dismissDirection: DismissDirection.horizontal,
@@ -37,14 +36,11 @@ class SettingsUserNameTextfeild extends StatelessWidget {
                   }
                 },
                 icon: Icon(
-                    color: Colors.blue, size: 30, Icons.mode_edit_outlined))
+                    color: AppColors.settingsUserNameIconColor,
+                    size: 30,
+                    Icons.mode_edit_outlined))
             : null,
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: Colors.black)),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: Colors.black)),
+       
       ),
       controller: TextEditingController(
         text: userName,
@@ -52,25 +48,3 @@ class SettingsUserNameTextfeild extends StatelessWidget {
     );
   }
 }
-// Widget SettingUserNameTextFeild({String username = '',required BuildContext context}) {
-//   return TextField(
-//     enableInteractiveSelection: false,
-//     readOnly: true,
-//     decoration: InputDecoration(
-//       suffixIcon: isName? IconButton(
-//           onPressed: () {
-//             GoRouter.of(context).pushNamed(AppRouterConstants.editNameRouteName,pathParameters: {'username':username});
-//           },
-//           icon: Icon(color: Colors.blue, size: 30, Icons.mode_edit_outlined)):null,
-//       focusedBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(20),
-//           borderSide: BorderSide(color: Colors.black)),
-//       enabledBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(20),
-//           borderSide: BorderSide(color: Colors.black)),
-//     ),
-//     controller: TextEditingController(
-//       text: username,
-//     ),
-//   );
-// }

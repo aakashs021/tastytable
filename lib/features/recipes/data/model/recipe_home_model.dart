@@ -1,6 +1,6 @@
 import 'package:tastytable/features/recipes/domain/entity/recipe_home.dart';
 
-class RecipeHomeModel extends RecipeHome{
+class RecipeHomeModel extends RecipeHomeEntity{
   RecipeHomeModel({required super.id, required super.title, required super.image});
 
   factory RecipeHomeModel.fromJson(Map<String , dynamic> json){
