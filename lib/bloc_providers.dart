@@ -5,6 +5,7 @@ import 'package:tastytable/core/configs/theme/app_theme.dart';
 import 'package:tastytable/features/auth/presentation/bloc/auth_bloc.dart';
 
 import 'package:tastytable/features/auth/presentation/cubit/g_cubit.dart';
+import 'package:tastytable/features/detail/presentation/bloc/recipe_detail_bloc.dart';
 import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipes_cubit_british.dart';
 import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipes_cubit_indian.dart';
 import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipes_cubit_italian.dart';
@@ -49,6 +50,7 @@ MultiBlocProvider blocProvider({required GoRouter router}) {
         BlocProvider(
           create: (context) => ChangePasswordCubit(),
         ),
+        BlocProvider(create: (context) => RecipeDetailBloc(),)
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, thememode) {

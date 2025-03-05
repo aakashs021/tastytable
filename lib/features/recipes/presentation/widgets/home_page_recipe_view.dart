@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipes_cubit_british.dart';
+import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipes_cubit_indian.dart';
+import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipes_cubit_italian.dart';
+import 'package:tastytable/features/recipes/presentation/cubit/view_all_page/view_all_page_cubit_british.dart';
+import 'package:tastytable/features/recipes/presentation/cubit/view_all_page/view_all_page_cubit_indian.dart';
+import 'package:tastytable/features/recipes/presentation/cubit/view_all_page/view_all_page_text_cubit_italian.dart';
 import 'package:tastytable/features/recipes/presentation/enum/cuisines.dart';
-import 'package:tastytable/features/recipes/presentation/widgets/cuisines/home_page_list_british.dart';
-import 'package:tastytable/features/recipes/presentation/widgets/cuisines/home_page_list_indian.dart';
-import 'package:tastytable/features/recipes/presentation/widgets/cuisines/home_page_list_view_italian.dart';
-import 'package:tastytable/features/recipes/presentation/widgets/viewallpage/home_page_sub_title_british.dart';
-import 'package:tastytable/features/recipes/presentation/widgets/viewallpage/home_page_sub_title_indian.dart';
-import 'package:tastytable/features/recipes/presentation/widgets/viewallpage/home_page_sub_title_italian.dart';
+import 'package:tastytable/features/recipes/presentation/widgets/home_page_list_british.dart';
+import 'package:tastytable/features/recipes/presentation/widgets/home_page_sub_title_british.dart';
 
-Widget HomePageRecipeView({required Cuisines cuisines,required BuildContext context}) {
- 
+Widget HomePageRecipeView(
+    {required Cuisines cuisines, required BuildContext context}) {
+  context.read<RecipesCubitBritish>().getRecipes();
+  context.read<RecipesCubitIndian>().getRecipes();
+  context.read<RecipeCubitItalian>().getRecipes();
 
   return Padding(
     padding: const EdgeInsets.only(left: 8.0),
@@ -19,18 +25,21 @@ Widget HomePageRecipeView({required Cuisines cuisines,required BuildContext cont
           height: 10,
         ),
         Align(
-            alignment: Alignment.topLeft,
-            child: pageSubType(cuisines: cuisines, context: context),),
+          alignment: Alignment.topLeft,
+          child: pageTypeSubTitle(cuisines: cuisines, context: context),
+        ),
         SizedBox(
           height: 200,
-          child: pageType(cuisines: cuisines),
+          child: pageTypeList(cuisines: cuisines),
         ),
       ],
     ),
   );
 }
 
- String cuisinesType({required Cuisines cuisines}) {
+Widget pageTypeSubTitle(
+    {required Cuisines cuisines, required BuildContext context}) {
+  String cuisinesNameType({required Cuisines cuisines}) {
     if (cuisines == Cuisines.british) {
       return "British Cuisine";
     }
@@ -40,22 +49,24 @@ Widget HomePageRecipeView({required Cuisines cuisines,required BuildContext cont
     return 'Italian Cuisine';
   }
 
-Widget pageSubType({required Cuisines cuisines,required BuildContext context}){
-      if (cuisines == Cuisines.british) {
-        return homePageSubTitleBritish(title: cuisinesType(cuisines: cuisines), context: context);
-      }
-       if (cuisines == Cuisines.indian) {
-        return homePageSubTitleIndian(title: cuisinesType(cuisines: cuisines), context: context);
-    }
-    return homePageSubTitleItalian(title: cuisinesType(cuisines: cuisines), context: context);
+  if (cuisines == Cuisines.british) {
+    return homePageSubTitle<ViewAllPageTextCubitBritish>(
+        title: cuisinesNameType(cuisines: cuisines), context: context);
+  }
+  if (cuisines == Cuisines.indian) {
+    return homePageSubTitle<ViewAllPageTextCubitIndian>(
+        title: cuisinesNameType(cuisines: cuisines), context: context);
+  }
+  return homePageSubTitle<ViewAllPageTextCubitItalian>(
+      title: cuisinesNameType(cuisines: cuisines), context: context);
 }
 
-Widget pageType({required Cuisines cuisines}){
-      if (cuisines == Cuisines.british) {
-        return HomePageRecipeListBritish(cusines: cuisines);
-      }
-       if (cuisines == Cuisines.indian) {
-      return HomePageRecipeListIndian(cusines: cuisines);
-    }
-    return HomePageRecipeListItalian(cusines: cuisines);
+Widget pageTypeList({required Cuisines cuisines}) {
+  if (cuisines == Cuisines.british) {
+    return HomePageRecipeList<RecipesCubitBritish>(cuisines: cuisines);
+  }
+  if (cuisines == Cuisines.indian) {
+    return HomePageRecipeList<RecipesCubitIndian>(cuisines: cuisines);
+  }
+  return HomePageRecipeList<RecipeCubitItalian>(cuisines: cuisines);
 }

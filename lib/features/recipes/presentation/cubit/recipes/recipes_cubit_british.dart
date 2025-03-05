@@ -32,6 +32,7 @@ class RecipesCubitBritish extends Cubit<RecipeCubitState> {
           emit(RecipeCubitFailure());
         } else {
           emit(RecipeCubitSuccess(validRecipes));
+          
         }
       },
     );

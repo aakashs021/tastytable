@@ -1,5 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' as Either;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickalert/models/quickalert_type.dart';
@@ -9,11 +9,18 @@ import 'package:tastytable/features/settings/domain/usecase/accoun_delete_usecas
 import 'package:tastytable/router/app_router_constants.dart';
 import 'package:tastytable/service_locator.dart';
 
-class PasswordCheckPage extends StatelessWidget {
+class PasswordCheckPage extends StatefulWidget {
   final String email;
   final String? reason;
   PasswordCheckPage({super.key, required this.email, required this.reason});
+
+  @override
+  State<PasswordCheckPage> createState() => _PasswordCheckPageState();
+}
+
+class _PasswordCheckPageState extends State<PasswordCheckPage> {
   var formKey = GlobalKey<FormState>();
+
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -42,7 +49,7 @@ class PasswordCheckPage extends StatelessWidget {
                       borderSide: BorderSide(color: AppColors.settingsCommonTextFeildBorderColor)),
                 ),
                 controller: TextEditingController(
-                  text: email,
+                  text: widget.email,
                 ),
               ),
               SizedBox(
@@ -86,9 +93,9 @@ class PasswordCheckPage extends StatelessWidget {
                               'Deleting your account will remove all of your information from our database. This cannot be undone.',
                           onCancelBtnTap: () => context.pop(),
                           onConfirmBtnTap: () async {
-                            Either<String, bool> result =
+                            Either.Either<String, bool> result =
                                 await ServiceLocator.sl<AccounDeleteUsecase>()
-                                    .call(params1: passwordController.text,params2: reason);
+                                    .call(params1: passwordController.text,params2: widget.reason);
                             result.fold(
                               (l) {
                                 context.pop();

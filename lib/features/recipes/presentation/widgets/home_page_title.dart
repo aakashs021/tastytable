@@ -22,7 +22,7 @@ Widget HomePageTitle({required BuildContext context}) {
           InkWell(
             onTap: () {
               GoRouter.of(context)
-                  .pushNamed(AppRouterConstants.settingsRouteName);
+                  .pushNamed(AppRouterConstants.detailHomePageRouteName,pathParameters: {'id':'2'});
             },
             child: CircleAvatar(
               backgroundColor: AppColors.recipeSettingsIconBackgroundColor,

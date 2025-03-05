@@ -1,19 +1,25 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:tastytable/features/settings/data/model/change_password_error_message_model.dart';
-import 'package:tastytable/features/settings/domain/usecase/check_password_and_update_usecase.dart';
 import 'package:tastytable/features/settings/presentation/cubit/change_password_cubit.dart';
-import 'package:tastytable/service_locator.dart';
 
-class EditPasswordPage extends StatelessWidget {
+class EditPasswordPage extends StatefulWidget {
   EditPasswordPage({super.key});
+
+  @override
+  State<EditPasswordPage> createState() => _EditPasswordPageState();
+}
+
+class _EditPasswordPageState extends State<EditPasswordPage> {
   TextEditingController currentPasswordController = TextEditingController();
+
   TextEditingController newPasswordController = TextEditingController();
+
   TextEditingController confirmPasswordController = TextEditingController();
+
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -129,7 +135,6 @@ class EditPasswordPage extends StatelessWidget {
                               backgroundColor: Colors.transparent,
                               content: AwesomeSnackbarContent(
                                   messageTextStyle: TextStyle(),
-                                  // titleTextStyle: TextStyle(fontSize: 15),
                                   title: model.title,
                                   message: model.message,
                                   contentType: ContentType.failure),

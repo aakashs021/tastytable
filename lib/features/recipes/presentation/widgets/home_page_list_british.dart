@@ -5,35 +5,35 @@ import 'package:go_router/go_router.dart';
 import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
 import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipe_state.dart';
-import 'package:tastytable/features/recipes/presentation/cubit/recipes/recipes_cubit_british.dart';
 import 'package:tastytable/features/recipes/presentation/cubit/view_all_page/view_all_page_cubit_british.dart';
+import 'package:tastytable/features/recipes/presentation/cubit/view_all_page/view_all_page_cubit_indian.dart';
+import 'package:tastytable/features/recipes/presentation/cubit/view_all_page/view_all_page_text_cubit_italian.dart';
 import 'package:tastytable/features/recipes/presentation/enum/cuisines.dart';
 import 'package:tastytable/features/recipes/presentation/widgets/empty_data_text.dart';
 import 'package:tastytable/features/recipes/presentation/widgets/shimmer_loading.dart';
 import 'package:tastytable/router/app_router_constants.dart';
 
-class HomePageRecipeListBritish extends StatelessWidget {
-  final Cuisines cusines;
+class HomePageRecipeList<TCubit extends Cubit<RecipeCubitState>>  extends StatelessWidget {
+  final Cuisines cuisines;
   
-  HomePageRecipeListBritish({super.key, required this.cusines});
+  HomePageRecipeList({super.key, required this.cuisines});
 
   @override
   Widget build(BuildContext context) {
-    context.read<RecipesCubitBritish>().getRecipes();
-    return BlocBuilder<RecipesCubitBritish, RecipeCubitState>(
+    return BlocBuilder<TCubit,RecipeCubitState>(      
       builder: (context, state) {
         if (state is RecipeCubitLoading) {
           return shimmerLoading();
         }
         if (state is RecipeCubitFailure) {
-          context.read<ViewAllPageTextCubitBritish>().dataNotExist();
+        viewAllCubitSuccessWorker(context: context, cuisines: cuisines, data: [],state: state);
           return EmptyTextData();
         }
         List<RecipeHomeModel> data = [];
         if (state is RecipeCubitSuccess) {
           data = state.recipes;
         }
-        context.read<ViewAllPageTextCubitBritish>().dataExists(recipes: data);
+        viewAllCubitSuccessWorker(context: context, cuisines: cuisines, data: data,state: state);
         return ListView.builder(
           padding: EdgeInsets.all(5),
           itemCount: data.length,
@@ -88,5 +88,31 @@ class HomePageRecipeListBritish extends StatelessWidget {
         );
       },
     );
+  }
+}
+viewAllCubitSuccessWorker({required BuildContext context, required Cuisines cuisines,required List<RecipeHomeModel> data,
+required RecipeCubitState state
+}){
+  if(state is RecipeCubitSuccess){
+
+    if (cuisines == Cuisines.british) {
+          context.read<ViewAllPageTextCubitBritish>().dataExists(recipes: data);
+    }else   if (cuisines == Cuisines.indian) {
+                  context.read<ViewAllPageTextCubitIndian>().dataExists(recipes: data);
+
+    }else{
+                    context.read<ViewAllPageTextCubitItalian>().dataExists(recipes: data);
+
+    }
+  }else{
+     if (cuisines == Cuisines.british) {
+          context.read<ViewAllPageTextCubitBritish>().dataNotExist();
+    }else   if (cuisines == Cuisines.indian) {
+                  context.read<ViewAllPageTextCubitIndian>().dataNotExist();
+
+    }else{
+                    context.read<ViewAllPageTextCubitItalian>().dataNotExist();
+
+    }
   }
 }

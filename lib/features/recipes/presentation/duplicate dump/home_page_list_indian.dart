@@ -16,7 +16,6 @@ class HomePageRecipeListIndian extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        context.read<RecipesCubitIndian>().getRecipes();
 
     return BlocBuilder<RecipesCubitIndian, RecipeCubitState>(
       builder: (context, state) {

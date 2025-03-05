@@ -1,10 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:tastytable/core/network/api_client.dart';
-import 'package:tastytable/core/usecase/settings/usecase_check_password_and_update.dart';
-import 'package:tastytable/core/usecase/settings/usecase_delete_account.dart';
-import 'package:tastytable/core/usecase/settings/usecase_get_login_method.dart';
-import 'package:tastytable/core/usecase/settings/usecase_settings.dart';
-import 'package:tastytable/core/usecase/settings/usecase_settings_update.dart';
+import 'package:tastytable/core/network/api_client_impl.dart';
 import 'package:tastytable/features/auth/data/data_source/firebase_authentication/auth_firebase_service.dart';
 import 'package:tastytable/features/auth/data/data_source/firebase_authentication/auth_firebase_service_impl.dart';
 import 'package:tastytable/features/auth/data/data_source/firebase_firestore/firebase_firestore_service.dart';
@@ -15,6 +11,10 @@ import 'package:tastytable/features/auth/domain/repository/auth_repository.dart'
 import 'package:tastytable/features/auth/domain/repository/firestore_repository.dart';
 import 'package:tastytable/features/auth/domain/usecase/signin_usecase.dart';
 import 'package:tastytable/features/auth/domain/usecase/signup_usecase.dart';
+import 'package:tastytable/features/detail/data/data%20source/recipe_detail_remote_datasource.dart';
+import 'package:tastytable/features/detail/data/repository/recipe_detail_repository_impl.dart';
+import 'package:tastytable/features/detail/domain/repository/recipe_detail_repository.dart';
+import 'package:tastytable/features/detail/domain/usecase/recipe_detail_usecase.dart';
 import 'package:tastytable/features/recipes/data/data%20source/recipe_remote_data_source.dart';
 import 'package:tastytable/features/recipes/data/repository/recipe_remote_repo_impl.dart';
 import 'package:tastytable/features/recipes/domain/repository/recipe_remote_repo.dart';
@@ -46,7 +46,7 @@ class ServiceLocator {
 
     // Api
     sl.registerLazySingleton<ApiClient>(
-      () => ApiClient(),
+      () => ApiClientImpl(),
     );
 
     // Recipe
@@ -70,6 +70,9 @@ class ServiceLocator {
     sl.registerLazySingleton<AccounDeleteUsecase>(() => AccounDeleteUsecase(),);
     sl.registerLazySingleton<DeleteGoogleAccountUsecase>(() => DeleteGoogleAccountUsecase(),);
 
-    // 
+    // Detail
+    sl.registerLazySingleton<RecipeDetailRemoteDatasource>(() => RecipeDetailRemoteDatasourceImpl(),);
+    sl.registerLazySingleton<RecipeDetailRepository>(() => RecipeDetailRepositoryImpl(),);
+    sl.registerLazySingleton<RecipeDetailUsecase>(() => RecipeDetailUsecase(),);
   }
 }

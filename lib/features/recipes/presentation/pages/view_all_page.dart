@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
+import 'package:tastytable/router/app_router_constants.dart';
 
 class ViewAllPage extends StatelessWidget {
   final String title;
@@ -34,48 +35,53 @@ class ViewAllPage extends StatelessWidget {
           RecipeHomeModel recipe = recipes[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 250,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: CachedNetworkImage(
-                      fit: BoxFit.fill,
-                      imageUrl: recipe.image,
-                      placeholder: (context, url) {
-                        return ViewAllShimmerLoading();
-                      },
-                      fadeOutDuration: Duration(milliseconds: 500),
-                      imageBuilder: (context, imageProvider) {
-                        isloaded.value = true;
-                        return Image(image: imageProvider, fit: BoxFit.fill);
-                      },
+            child: InkWell(
+              onTap: () {
+                GoRouter.of(context).pushNamed(AppRouterConstants.detailViewAllPageRouteName);
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 250,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.fill,
+                        imageUrl: recipe.image,
+                        placeholder: (context, url) {
+                          return ViewAllShimmerLoading();
+                        },
+                        fadeOutDuration: Duration(milliseconds: 500),
+                        imageBuilder: (context, imageProvider) {
+                          isloaded.value = true;
+                          return Image(image: imageProvider, fit: BoxFit.fill);
+                        },
+                      ),
                     ),
                   ),
-                ),
-                ValueListenableBuilder(
-                  valueListenable: isloaded,
-                  builder: (context, value, child) {
-                    return value
-                        ? Positioned(
-                            left: 10,
-                            top: 10,
-                            right: 10,
-                            child: Text(
-                                maxLines: 1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.viewAllRecipeTitleColor,
-                                    fontSize: 20,
-                                    overflow: TextOverflow.ellipsis),
-                                recipe.title),
-                          )
-                        : SizedBox();
-                  },
-                ),
-              ],
+                  ValueListenableBuilder(
+                    valueListenable: isloaded,
+                    builder: (context, value, child) {
+                      return value
+                          ? Positioned(
+                              left: 10,
+                              top: 10,
+                              right: 10,
+                              child: Text(
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.viewAllRecipeTitleColor,
+                                      fontSize: 20,
+                                      overflow: TextOverflow.ellipsis),
+                                  recipe.title),
+                            )
+                          : SizedBox();
+                    },
+                  ),
+                ],
+              ),
             ),
           );
         },
