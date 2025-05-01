@@ -49,15 +49,13 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
       var currentUser = firebaseAuth.currentUser;
       String email = currentUser!.email ?? "";
       String name = currentUser.displayName ?? "";
-      final userDoc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(email)
-        .get();
-        if(!userDoc.exists){
-      UserModel userModel = UserModel(name: name, email: email, password: "");
-      await ServiceLocator.sl<FirestoreRepository>()
-          .storeUserDetail(userModel: userModel);
-        }
+      final userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(email).get();
+      if (!userDoc.exists) {
+        UserModel userModel = UserModel(name: name, email: email, password: "",isGoogle: true);
+        await ServiceLocator.sl<FirestoreRepository>()
+            .storeUserDetail(userModel: userModel);
+      }
       return right("User signed in through google successfully");
     } on FirebaseAuthException catch (e) {
       return left(e.message ?? "An Unexpected error occured");
@@ -85,6 +83,33 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
       return left(null);
     } catch (e) {
       return left(null);
+    }
+  }
+
+  @override
+  Future<String> forgotPassword({required String email}) async {
+    try {
+
+    Either<String, UserModel> result= await ServiceLocator.sl<FirestoreRepository>().getUserDetail(email: email);
+
+    result.fold((l) {
+      print('not exists=====================');
+      throw 'User does not exists';
+    }, (r) {
+      if(r.isGoogle){
+        print('google========================');
+        throw 'Google users cannot reset password.';
+      }
+    },);
+      
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      print('succes-----------------');
+      return 'Success';
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseAuthException(
+          code: e.code); // Just rethrowing the exception
+    } catch (e) {
+      throw Exception(e);
     }
   }
 }

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 abstract class AuthState {}
 
 class AuthInitial extends AuthState {}
@@ -16,3 +17,16 @@ class AuthError extends AuthState {
 
   AuthError(this.errorMessage);
 }
+
+class AuthForgotPasswordInitial extends AuthState{}
+
+class AuthForgotPasswordFailure extends AuthState {
+  String errorCode;
+  AuthForgotPasswordFailure({
+    required this.errorCode,
+  });
+}
+
+class AuthFogotPasswordSuccess extends AuthState{}
+
+class AuthFogotPasswordLoading extends AuthState{}

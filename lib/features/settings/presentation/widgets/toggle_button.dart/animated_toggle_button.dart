@@ -205,3 +205,4 @@ class StarryBackgroundPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant StarryBackgroundPainter oldDelegate) => true;
 }
+

@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 
 class ContentColumnWidget extends StatefulWidget {
   final String title;
@@ -33,15 +33,27 @@ class _ContentColumnWidgetState extends State<ContentColumnWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: bgColor,
+      decoration: BoxDecoration(
+        color: widget.colorCode == 3 ? null : bgColor,
+        gradient: widget.colorCode == 3
+            ? LinearGradient(
+                colors: [
+                  bgColor,
+                  AppColors.detailDirectionsContainerBottomColor
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )
+            : null,
+      ),
       child: Container(
         // height: 100,
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.vertical(
-            top: Radius.circular(30),
-          ),
+              top: Radius.circular(30),
+              bottom: Radius.circular(widget.colorCode == 3 ? 30 : 0)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -91,17 +103,15 @@ class _ContentColumnWidgetState extends State<ContentColumnWidget> {
   }
 }
 
-
 Color containerColorFunction({required int colorCode}) {
   if (colorCode == 1) {
-    return Colors.green.shade100;
+    return AppColors.detailSummaryContainer;
   }
   if (colorCode == 2) {
-    return Colors.blue.shade100;
+    return AppColors.detailIngredientsContainer;
   }
   if (colorCode == 3) {
-    return Colors.grey.shade300;
+    return AppColors.detailDirectionsContainer;
   }
-  return Colors.white;
+  return AppColors.detailContentBackgroundColor;
 }
-

@@ -1,6 +1,9 @@
 class AppRouterConstants {
 static  const String signInRouteName = 'signin';
 static  const String signUpRouteName = 'signup';
+static const String forgotPasswordRouteName = 'forgotpassword';
+
+// static const String openEmailPageRouteName = 'openemail';
 static  const String homeRouteName = 'home';
 static const String viewAllPageRouteName = "viewAll";
 static const String settingsRouteName = "settings";
@@ -13,5 +16,7 @@ static const String checkPasswordPageRouteName = "checkpassword";
 static const String detailHomePageRouteName = "detailpage";
 static const String detailViewAllPageRouteName= "detailviewallpage";
 static const String searchPageRouteName = 'searchpage';
+static const String detailSearchPageRouteName = "detailSearchpage";
+
 
 }

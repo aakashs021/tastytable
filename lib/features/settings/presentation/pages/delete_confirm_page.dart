@@ -2,18 +2,23 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/settings/domain/usecase/delete_google_account_usecase.dart';
 import 'package:tastytable/features/settings/domain/usecase/get_login_method_usecase.dart';
+import 'package:tastytable/features/settings/presentation/bloc/delete%20google%20account/delete_google_account_bloc.dart';
+import 'package:tastytable/features/settings/presentation/bloc/delete%20google%20account/delete_google_account_event.dart';
+import 'package:tastytable/features/settings/presentation/bloc/delete%20google%20account/delete_google_account_state.dart';
 import 'package:tastytable/router/app_router_constants.dart';
 import 'package:tastytable/service_locator.dart';
 
 class DeleteAccountConfirmPage extends StatelessWidget {
-  final String reason;
+  final String? reason;
   DeleteAccountConfirmPage({super.key, required this.reason});
 
   @override
@@ -94,8 +99,9 @@ class DeleteAccountConfirmPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                    style: TextStyle(fontSize: 16, 
-                    // color: Colors.grey.shade900
+                    style: TextStyle(
+                      fontSize: 16,
+                      // color: Colors.grey.shade900
                     ),
                     "By submitting a request for Tasty Table to delete your account, you understand and acknowledge that:"),
                 Column(
@@ -126,18 +132,55 @@ class DeleteAccountConfirmPage extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white),
-                        onPressed: () async{
-                          Either<bool,bool> checkLogin = ServiceLocator.sl<GetLoginMethodUsecase>().call();
-                          checkLogin.fold((l) async{
-                             QuickAlert.show(
+                  BlocListener<DeleteGoogleAccountBloc,
+                      DeleteGoogleAccountState>(
+                    listener: (context, state) {
+                      if (state is DeleteGoogleAccountLoadingState) {
+                         AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(20), // Rounded corners
+                      ),
+                      backgroundColor: Colors.white, // Clean white background
+                      title: Center(
+                        child: Text(
+                          'Deleting your account...',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      content: LoadingIndicator(
+                        indicatorType: Indicator.ballSpinFadeLoader,
+                        colors: [Colors.grey],
+                      ),
+                    );
+                      }
+
+                      if (state is DeleteGoogleAccountFailureState) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: AwesomeSnackbarContent(
+                                title: "Invalid error",
+                                message: 'error',
+                                contentType: ContentType.failure)));
+                      }
+
+                      if (state is DeleteGoogleAccountSuccessState) {
+                        GoogleSignIn().signOut();
+                        GoRouter.of(context)
+                            .goNamed(AppRouterConstants.signInRouteName);
+                      }
+                      if (state is CheckGoogleAccountFailureState) {
+                        GoRouter.of(context).pushNamed(
+                            AppRouterConstants.checkPasswordPageRouteName,
+                            pathParameters: {
+                              'email': email,
+                            },
+                            extra: reason);
+                      }
+
+                      if (state is CheckGoogleAccountSuccessState) {
+                        QuickAlert.show(
+                          // backgroundColor: AppColors.primary,
                           confirmBtnColor: Colors.red,
                           confirmBtnText: 'Delete',
                           context: context,
@@ -147,36 +190,30 @@ class DeleteAccountConfirmPage extends StatelessWidget {
                               'Deleting your account will remove all of your information from our database. This cannot be undone.',
                           onCancelBtnTap: () => context.pop(),
                           onConfirmBtnTap: () async {
-                                                   Either<String, bool> result=  await ServiceLocator.sl<DeleteGoogleAccountUsecase>().call(reason: reason);
-
-                            result.fold(
-                              (l) {
-                                context.pop();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: AwesomeSnackbarContent(
-                                            title: "Invalid error",
-                                            message: 'error',
-                                            contentType: ContentType.failure)));
-                              },
-                              (r) {
-                                context.pop();
-                                GoogleSignIn().signOut();
-                                GoRouter.of(context).goNamed(
-                                    AppRouterConstants.signInRouteName);
-                              },
-                            );
+                            context.pop();
+                            context.read<DeleteGoogleAccountBloc>().add(
+                                OnDeleteGoolgleAccountEvent(reason: reason));
                           },
                         );
-                            
-                          }, (r) {
-                          GoRouter.of(context).pushNamed(AppRouterConstants.checkPasswordPageRouteName,pathParameters: {'email':email});          
-                          },);
-
-                        },
-                        child: Text(
-                            style: TextStyle(fontSize: 18),
-                            'Delete my account')),
+                      }
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white),
+                          onPressed: () async {
+                            context
+                                .read<DeleteGoogleAccountBloc>()
+                                .add(OnCheckGoogleLoginEvent());
+                          },
+                          child: Text(
+                              style: TextStyle(fontSize: 18),
+                              'Delete my account')),
+                    ),
                   ),
                   Divider()
                 ],
@@ -197,8 +234,10 @@ Widget deleteConfirmPoints({required String title, required int index}) {
       // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         CircleAvatar(
-          backgroundColor: AppColors.deleteConfirmAccountCircleAvatarBackgroundColor,
-          foregroundColor: AppColors.deleteConfirmAccountCircleAvatarForegroundColor,
+          backgroundColor:
+              AppColors.deleteConfirmAccountCircleAvatarBackgroundColor,
+          foregroundColor:
+              AppColors.deleteConfirmAccountCircleAvatarForegroundColor,
           radius: 15,
           child: Align(
             // alignment: Alignment.topCenter,

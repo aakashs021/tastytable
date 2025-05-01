@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/recipes/presentation/pages/s_out.dart';
 import 'package:tastytable/features/settings/presentation/bloc/user_name_bloc.dart';
@@ -101,7 +102,16 @@ class _SettingPageState extends State<SettingPage> {
                         foregroundColor: AppColors.settingsSignoutForegroundColor,
                         ),
                     onPressed: () {
-                      signOutFunction(context: context);
+                      QuickAlert.show(
+                        context: context,
+                        type: QuickAlertType.confirm,
+                        title: "Sign Out",
+                        text: 'Are you sure you want to sign out?',
+                        confirmBtnText: 'Sign 0ut',
+                        confirmBtnColor: Colors.red,
+                        onConfirmBtnTap: () => signOutFunction(context: context),
+                        onCancelBtnTap: () => context.pop(),
+                      );
                     },
                     child: const Text('signout')),
               ),

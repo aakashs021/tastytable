@@ -1,5 +1,10 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quickalert/quickalert.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/detail/data/model/recipe_detail_model.dart';
 import 'package:tastytable/features/detail/presentation/widgets/content_column_widget.dart';
 import 'package:tastytable/features/detail/presentation/widgets/detail_minute_widget.dart';
@@ -7,6 +12,7 @@ import 'package:tastytable/features/detail/presentation/widgets/ingredients_cont
 import 'package:tastytable/features/detail/presentation/widgets/serving_person_widget.dart';
 import 'package:tastytable/features/detail/presentation/widgets/veg_or_non_veg_sign.dart';
 import 'package:tastytable/features/detail/presentation/widgets/vertical_divider_container.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailContent2 extends StatelessWidget {
   final RecipeDetailModel recipe;
@@ -32,11 +38,30 @@ class DetailContent2 extends StatelessWidget {
           ),
           expandedHeight: 300,
           flexibleSpace: FlexibleSpaceBar(
-            background: Image.network(
-              recipe.image,
-              fit: BoxFit.cover,
-            ),
-          ),
+              background: CachedNetworkImage(
+            imageUrl: recipe.image,
+            height: 300,
+            fit: BoxFit.cover,
+            placeholder: (context, url) {
+              return Shimmer.fromColors(
+                  child: Container(
+                    height: 300,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppColors.shimmerContainerColor,
+                      // borderRadius: bor
+                    ),
+                  ),
+                  baseColor: AppColors.shimmerBaseColor,
+                  highlightColor: AppColors.shimmerHighlightColor);
+            },
+          )
+              // Image.network(
+              //   height: 300,
+              //   recipe.image,
+              //   fit: BoxFit.cover,
+              // ),
+              ),
         )
       ],
       body: SingleChildScrollView(
@@ -45,17 +70,7 @@ class DetailContent2 extends StatelessWidget {
           // margin: EdgeInsets.only(top: -30),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(30),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 10,
-                spreadRadius: 2,
-              )
-            ],
+            color: AppColors.detailContentBackgroundColor,
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 0.0),
@@ -66,7 +81,7 @@ class DetailContent2 extends StatelessWidget {
                   height: 5,
                   width: 100,
                   decoration: BoxDecoration(
-                      color: Colors.black26,
+                      color: AppColors.detailContentTopDivider,
                       borderRadius: BorderRadius.circular(50)),
                 ),
                 Padding(
@@ -111,6 +126,45 @@ class DetailContent2 extends StatelessWidget {
                   title: 'Directions',
                   content: recipe.instructions,
                   colorCode: 3,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white),
+                    onPressed: () async {
+                      QuickAlert.show(
+                        context: context,
+                        type: QuickAlertType.confirm,
+                        title: 'Opening Website',
+                        text:
+                            'Please wait while we open the website. This may take a few moments. Thank you for your patience!',
+                        onConfirmBtnTap: () async {
+                          final Uri uri = Uri.parse(recipe.webLink);
+                          context.pop();
+                          if (!await launchUrl(uri)) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: AwesomeSnackbarContent(
+                                title: "Oops! Website Not Opening",
+                                message:
+                                    "Looks like something went wrong. Please try again in a moment!",
+                                contentType: ContentType.failure,
+                              ),
+                            ));
+                          }
+                        },
+                        onCancelBtnTap: () {
+                          context.pop();
+                        },
+                      );
+                    },
+                    child: Text('Go to website for more detail')),
+                SizedBox(
+                  height: 20,
                 )
               ],
             ),

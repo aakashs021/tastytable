@@ -12,33 +12,36 @@ class DetailPageShimmer extends StatelessWidget {
     double sizedBoxHeight = h * 0.02;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 50),
-      child: Column(
-        children: [
-          shimmerContainer(height: h * 0.35),
-          SizedBox(
-            height: sizedBoxHeight,
-          ),
-          shimmerContainer(height: h * 0.055),
-          SizedBox(
-            height: sizedBoxHeight,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              shimmerContainer(height: h * 0.09, width: w * 0.25),
-              shimmerContainer(height: h * 0.09, width: w * 0.25),
-              shimmerContainer(height: h * 0.09, width: w * 0.25),
-            ],
-          ),
-          SizedBox(
-            height: sizedBoxHeight,
-          ),
-          shimmerContainer(height: h * 0.17),
-          SizedBox(
-            height: sizedBoxHeight,
-          ),
-          shimmerContainer(height: h * 0.1),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            shimmerContainer(height: h * 0.35),
+            SizedBox(
+              height: sizedBoxHeight,
+            ),
+            shimmerContainer(height: h * 0.055),
+            SizedBox(
+              height: sizedBoxHeight,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                shimmerContainer(height: h * 0.09, width: w * 0.25),
+                shimmerContainer(height: h * 0.09, width: w * 0.25),
+                shimmerContainer(height: h * 0.09, width: w * 0.25),
+              ],
+            ),
+            SizedBox(
+              height: sizedBoxHeight,
+            ),
+            shimmerContainer(height: h * 0.17),
+            SizedBox(
+              height: sizedBoxHeight,
+            ),
+            shimmerContainer(height: h * 0.1),
+          ],
+        ),
       ),
     );
   }

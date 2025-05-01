@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/detail/data/model/ingredients_model.dart';
 
 class IngredientsContentColumnWidget extends StatefulWidget {
@@ -24,11 +24,11 @@ class _IngredientsContentColumnWidgetState
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.green.shade100,
+      color: AppColors.detailSummaryContainer,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         decoration: BoxDecoration(
-          color: Colors.blue.shade100,
+          color: AppColors.detailIngredientsContainer,
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(30),
           ),
@@ -38,7 +38,7 @@ class _IngredientsContentColumnWidgetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,42 +58,44 @@ class _IngredientsContentColumnWidgetState
                         : Icons.keyboard_arrow_down_rounded))
               ],
             ),
-           AnimatedSize(
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                    child:
-                     showContent
-                ?  ListView.builder(
-                      padding: null,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: widget.ingredients.length,
-                      itemBuilder: (context, index) {
-                        IngredientsModel model = IngredientsModel.fromJson(
-                            json: widget.ingredients[index]);
-                        return Row(
-                          children: [
-                            Icon(
-                              Icons.circle,
-                              size: 5,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              model.ingredientAmount +
-                                  " " +
-                                  model.ingredientUnit +
-                                  " of " +
-                                  model.ingredientName,
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        );
-                      },
-                    ): SizedBox(),
-                  ),
-                
+            AnimatedSize(
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              child: showContent
+                  ? Container(
+                      // color: Colors.red,
+                      child: ListView.builder(
+                        padding: EdgeInsets.all(0),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: widget.ingredients.length,
+                        itemBuilder: (context, index) {
+                          IngredientsModel model = IngredientsModel.fromJson(
+                              json: widget.ingredients[index]);
+                          return Row(
+                            children: [
+                              Icon(
+                                Icons.circle,
+                                size: 5,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                model.ingredientAmount +
+                                    " " +
+                                    model.ingredientUnit +
+                                    " of " +
+                                    model.ingredientName,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    )
+                  : SizedBox(),
+            ),
             SizedBox(
               height: 20,
             )

@@ -22,7 +22,7 @@ Widget HomePageTitle({required BuildContext context}) {
           InkWell(
             onTap: () {
               GoRouter.of(context)
-                  .pushNamed(AppRouterConstants.detailHomePageRouteName,pathParameters: {'id':'2'});
+                  .pushNamed(AppRouterConstants.settingsRouteName);
             },
             child: CircleAvatar(
               backgroundColor: AppColors.recipeSettingsIconBackgroundColor,
@@ -70,7 +70,10 @@ Widget HomePageTitle({required BuildContext context}) {
                 Expanded(
                   child: Text(
                     'Search',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
                   ),
                 ),
                 Container(

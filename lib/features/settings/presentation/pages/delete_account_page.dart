@@ -74,13 +74,13 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       context.pop();
                       GoRouter.of(context).pushNamed(
                           AppRouterConstants.deleteAccountConfirmPageRouteName,
-                          extra: reasonController.text);
+                          extra: null);
                     },
                   );
                 } else {
                   GoRouter.of(context).pushNamed(
                       AppRouterConstants.deleteAccountConfirmPageRouteName,
-                      extra: reasonController.text);
+                      extra: reasonController);
                 }
               },
               child: Text('Continue')),

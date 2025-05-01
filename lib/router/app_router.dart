@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tastytable/features/auth/presentation/pages/forgot_password_page.dart';
+import 'package:tastytable/features/auth/presentation/pages/open_email_page.dart';
 import 'package:tastytable/features/detail/presentation/pages/detail_page.dart';
 import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
 import 'package:tastytable/features/recipes/presentation/pages/view_all_page.dart';
@@ -37,6 +39,12 @@ class AppRouter {
             GoRoute(path: '/searchpage',
             name: AppRouterConstants.searchPageRouteName,
             builder: (context, state) => SearchPage(),
+            routes: [
+              GoRoute(path: '/detail/:id',
+              name: AppRouterConstants.detailSearchPageRouteName,
+              builder: (context, state) => DetailPage(id: state.pathParameters['id']!),
+              )
+            ]
             ),
             // View all page with page slid transition
             GoRoute(
@@ -134,12 +142,12 @@ class AppRouter {
       routes: [
         GoRoute(path: '/deleteaccountconfirm',
         name: AppRouterConstants.deleteAccountConfirmPageRouteName,
-        builder: (context, state) => DeleteAccountConfirmPage(reason: state.extra as String,),
+        builder: (context, state) => DeleteAccountConfirmPage(reason: state.extra as String?,),
         routes: [
           GoRoute(path: '/passwordcheck/:email',
           name: AppRouterConstants.checkPasswordPageRouteName,
           builder: (context, state) => PasswordCheckPage(email: state.pathParameters['email']!,
-            reason: state.extra as String
+            reason: state.extra as String?
           ),
           )
         ]
@@ -173,6 +181,18 @@ GoRoute(path: '/detailpage/:id',
         name: AppRouterConstants.signInRouteName,
         path: "/signin",
         builder: (context, state) => SignInPage(),
+        routes: [
+          GoRoute(path: '/forgotpassword',
+          name: AppRouterConstants.forgotPasswordRouteName,
+          builder: (context, state) => ForgotPasswordPage(),
+          // routes: [
+          //   GoRoute(path: '/openemail',
+          //   name: AppRouterConstants.openEmailPageRouteName,
+          //   builder: (context, state) => OpenEmailPage(),
+          //   )
+          // ]
+          )
+        ]
       ),
       GoRoute(
         name: AppRouterConstants.signUpRouteName,

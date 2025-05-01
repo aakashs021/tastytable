@@ -12,5 +12,7 @@ abstract class AuthRepostory {
 
       Either<String,String> signOut();
 
+      Future<Either<String,String>> forgotPassword({required String email});
+
 
 }

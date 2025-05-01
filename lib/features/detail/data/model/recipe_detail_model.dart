@@ -10,7 +10,7 @@ class RecipeDetailModel extends RecipeDetailEnitity {
       required super.ingredients,
       required super.isVeg,
       required super.serving,
-      required super.summary});
+      required super.summary, required super.webLink});
 
   factory RecipeDetailModel.fromJson({required Map<String, dynamic> json}) {
     return RecipeDetailModel(
@@ -22,7 +22,7 @@ class RecipeDetailModel extends RecipeDetailEnitity {
       ingredients: json['extendedIngredients'] ?? [],
       isVeg: json['vegetarian'] ?? false,
       serving: (json['servings'] ?? 0).toString(),
-      summary: cleanText(json['summary'] ?? ''),
+      summary: cleanText(json['summary'] ?? ''), webLink: json['sourceUrl']??'',
     );
   }
  static String cleanText(String input) {

@@ -11,5 +11,7 @@ Future<Either<String,String>> signIn(UserModel userModel);
   Either<String,String> signOut();
 
   Either<Null,String> getUserEmailId();
+
+  Future<String> forgotPassword({required String email});
   }
   

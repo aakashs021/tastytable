@@ -1,11 +1,16 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dartz/dartz.dart' as Either;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/settings/domain/usecase/accoun_delete_usecase.dart';
+import 'package:tastytable/features/settings/presentation/bloc/delete%20account%20bloc/delete_account_bloc.dart';
+import 'package:tastytable/features/settings/presentation/bloc/delete%20account%20bloc/delete_account_event.dart';
+import 'package:tastytable/features/settings/presentation/bloc/delete%20account%20bloc/delete_account_state.dart';
 import 'package:tastytable/router/app_router_constants.dart';
 import 'package:tastytable/service_locator.dart';
 
@@ -43,10 +48,12 @@ class _PasswordCheckPageState extends State<PasswordCheckPage> {
                   labelText: 'Your email ID',
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: AppColors.settingsCommonTextFeildBorderColor)),
+                      borderSide: BorderSide(
+                          color: AppColors.settingsCommonTextFeildBorderColor)),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: AppColors.settingsCommonTextFeildBorderColor)),
+                      borderSide: BorderSide(
+                          color: AppColors.settingsCommonTextFeildBorderColor)),
                 ),
                 controller: TextEditingController(
                   text: widget.email,
@@ -67,57 +74,82 @@ class _PasswordCheckPageState extends State<PasswordCheckPage> {
                   labelText: 'Enter your password',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: AppColors.settingsCommonTextFeildBorderColor)),
+                      borderSide: BorderSide(
+                          color: AppColors.settingsCommonTextFeildBorderColor)),
                 ),
               ),
               SizedBox(
                 height: 30,
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 20),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white),
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        QuickAlert.show(
-                          confirmBtnColor: Colors.red,
-                          confirmBtnText: 'Delete',
-                          context: context,
-                          type: QuickAlertType.confirm,
-                          title: "Delete Account",
-                          text:
-                              'Deleting your account will remove all of your information from our database. This cannot be undone.',
-                          onCancelBtnTap: () => context.pop(),
-                          onConfirmBtnTap: () async {
-                            Either.Either<String, bool> result =
-                                await ServiceLocator.sl<AccounDeleteUsecase>()
-                                    .call(params1: passwordController.text,params2: widget.reason);
-                            result.fold(
-                              (l) {
-                                context.pop();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: AwesomeSnackbarContent(
-                                            title: "Invalid error",
-                                            message: l,
-                                            contentType: ContentType.failure)));
-                              },
-                              (r) {
-                                context.pop();
-                                GoRouter.of(context).goNamed(
-                                    AppRouterConstants.signInRouteName);
-                              },
-                            );
-                          },
-                        );
-                      }
-                    },
-                    child: Text(
-                        style: TextStyle(fontSize: 18), 'Delete my account')),
+              BlocListener<DeleteAccountBloc, DeleteAccountState>(
+                listener: (context, state) {
+                  if (state is DeleteAccountLoadingState) {
+                    AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(20), // Rounded corners
+                      ),
+                      backgroundColor: Colors.white, // Clean white background
+                      title: Center(
+                        child: Text(
+                          'Deleting Account',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      content: LoadingIndicator(
+                        indicatorType: Indicator.ballSpinFadeLoader,
+                        colors: [Colors.grey],
+                      ),
+                    );
+                  }
+                  if (state is DeleteAccountFailureState) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                            title: "Invalid error",
+                            message: state.errorText,
+                            contentType: ContentType.failure)));
+                  }
+                  if (state is DeleteAccountSuccessState) {
+                    GoRouter.of(context)
+                        .goNamed(AppRouterConstants.signInRouteName);
+                  }
+                },
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white),
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          QuickAlert.show(
+                            confirmBtnColor: Colors.red,
+                            confirmBtnText: 'Delete',
+                            context: context,
+                            type: QuickAlertType.confirm,
+                            title: "Delete Account",
+                            text:
+                                'Deleting your account will remove all of your information from our database. This cannot be undone.',
+                            onCancelBtnTap: () => context.pop(),
+                            onConfirmBtnTap: () async {
+                              context.pop();
+                              FocusScope.of(context).requestFocus(FocusNode());
+                              context.read<DeleteAccountBloc>().add(
+                                  OnDeleteAccountEvent(
+                                      password: passwordController.text,
+                                      reason: widget.reason));
+                            },
+                          );
+                        }
+                      },
+                      child: Text(
+                          style: TextStyle(fontSize: 18), 'Delete my account')),
+                ),
               ),
             ],
           ),

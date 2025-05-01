@@ -32,7 +32,7 @@ Widget homePageSubTitle<TCubit extends Cubit<ViewAllPageTextState>>(
             child: Text(
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    color: AppColors.recipeViewAllTextColor,
+                    // color: AppColors.recipeViewAllTextColor,
                     decoration: TextDecoration.underline),
                 'View All'),
           );

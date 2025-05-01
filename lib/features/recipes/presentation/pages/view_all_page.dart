@@ -16,6 +16,7 @@ class ViewAllPage extends StatelessWidget {
     ValueNotifier<bool> isloaded = ValueNotifier<bool>(false);
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: AppColors.primary,
         centerTitle: true,
         title: Text(title),
         leading: IconButton(
@@ -37,7 +38,11 @@ class ViewAllPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: InkWell(
               onTap: () {
-                GoRouter.of(context).pushNamed(AppRouterConstants.detailViewAllPageRouteName);
+                GoRouter.of(context).pushNamed(AppRouterConstants.detailViewAllPageRouteName,
+                pathParameters: {
+                  'title':title,
+                  'id':recipe.id.toString()}
+                );
               },
               child: Stack(
                 children: [

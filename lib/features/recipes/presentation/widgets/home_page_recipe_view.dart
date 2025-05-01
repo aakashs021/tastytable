@@ -15,7 +15,7 @@ Widget HomePageRecipeView(
   context.read<RecipesCubitBritish>().getRecipes();
   context.read<RecipesCubitIndian>().getRecipes();
   context.read<RecipeCubitItalian>().getRecipes();
-
+  double h = MediaQuery.of(context).size.height;
   return Padding(
     padding: const EdgeInsets.only(left: 8.0),
     child: Column(
@@ -29,7 +29,7 @@ Widget HomePageRecipeView(
           child: pageTypeSubTitle(cuisines: cuisines, context: context),
         ),
         SizedBox(
-          height: 200,
+          height: h * 0.25,
           child: pageTypeList(cuisines: cuisines),
         ),
       ],

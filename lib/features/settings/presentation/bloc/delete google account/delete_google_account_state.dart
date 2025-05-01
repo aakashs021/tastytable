@@ -1,0 +1,13 @@
+class DeleteGoogleAccountState {}
+
+class DeleteGoogleAccountInitalState extends DeleteGoogleAccountState{}
+
+class DeleteGoogleAccountLoadingState extends DeleteGoogleAccountState{}
+
+class DeleteGoogleAccountFailureState extends DeleteGoogleAccountState{}
+
+class DeleteGoogleAccountSuccessState extends DeleteGoogleAccountState{}
+
+class CheckGoogleAccountSuccessState extends DeleteGoogleAccountState{}
+
+class CheckGoogleAccountFailureState extends DeleteGoogleAccountState{}

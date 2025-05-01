@@ -14,3 +14,11 @@ class SignInEvent extends AuthEvent{
   SignInEvent({required this.userModel});
 
 }
+
+class ForgotPasswordSuccessBackButtonEvent extends AuthEvent{}
+
+class ForgotPasswordEvent extends AuthEvent{
+  final String email;
+
+  ForgotPasswordEvent({required this.email});
+}

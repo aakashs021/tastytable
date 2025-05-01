@@ -20,8 +20,8 @@ class AppColors {
       isDark ? Colors.white : Colors.black;
   static Color get recipeSettingsIconBackgroundColor =>
       isDark ? Colors.grey.shade700 : Colors.grey.shade300;
-  static Color get recipeViewAllTextColor =>
-      isDark ? Colors.white : Colors.black;
+  // static Color get recipeViewAllTextColor =>
+  //     isDark ? Colors.white : Colors.black;
   static const Color recipeFoodTitleColor = Colors.white;
   static Color get recipePopUpCancelTextColor =>
   isDark? Colors.white:Colors.black;
@@ -63,4 +63,21 @@ class AppColors {
       isDark ? Colors.white : Colors.grey;
   static Color get privacyAndPolicyOwnerTextColor =>
       isDark ? Colors.grey.shade500 : Colors.grey;
+
+      // Detail
+      static Color get detailContentBackgroundColor =>
+      isDark ? Colors.black : Colors.white;
+      static Color get detailContentTopDivider =>
+      isDark ? Colors.black26 : Colors.white24;
+      static Color get detailVerticalDividerContainer =>
+      isDark ? Colors.white : Colors.black;
+      static Color get detailSummaryContainer =>
+      isDark ? Colors.green.shade900 : Colors.green.shade100;
+      static Color get detailIngredientsContainer =>
+      isDark ? Colors.blue.shade900 : Colors.blue.shade100;
+      static Color get detailDirectionsContainer =>
+      isDark ? Colors.grey.shade900 : Colors.grey.shade100;
+      static Color get detailDirectionsContainerBottomColor =>
+      isDark ? Colors.black : Colors.white;
+      
 }

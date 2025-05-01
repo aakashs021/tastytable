@@ -13,27 +13,32 @@ import 'package:tastytable/features/recipes/presentation/widgets/empty_data_text
 import 'package:tastytable/features/recipes/presentation/widgets/shimmer_loading.dart';
 import 'package:tastytable/router/app_router_constants.dart';
 
-class HomePageRecipeList<TCubit extends Cubit<RecipeCubitState>>  extends StatelessWidget {
+class HomePageRecipeList<TCubit extends Cubit<RecipeCubitState>>
+    extends StatelessWidget {
   final Cuisines cuisines;
-  
+
   HomePageRecipeList({super.key, required this.cuisines});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TCubit,RecipeCubitState>(      
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
+    return BlocBuilder<TCubit, RecipeCubitState>(
       builder: (context, state) {
         if (state is RecipeCubitLoading) {
-          return shimmerLoading();
+          return shimmerLoading(context);
         }
         if (state is RecipeCubitFailure) {
-        viewAllCubitSuccessWorker(context: context, cuisines: cuisines, data: [],state: state);
+          viewAllCubitSuccessWorker(
+              context: context, cuisines: cuisines, data: [], state: state);
           return EmptyTextData();
         }
         List<RecipeHomeModel> data = [];
         if (state is RecipeCubitSuccess) {
           data = state.recipes;
         }
-        viewAllCubitSuccessWorker(context: context, cuisines: cuisines, data: data,state: state);
+        viewAllCubitSuccessWorker(
+            context: context, cuisines: cuisines, data: data, state: state);
         return ListView.builder(
           padding: EdgeInsets.all(5),
           itemCount: data.length,
@@ -43,22 +48,25 @@ class HomePageRecipeList<TCubit extends Cubit<RecipeCubitState>>  extends Statel
             return InkWell(
               onTap: () {
                 String id = recipe.id.toString();
-                GoRouter.of(context).pushNamed(AppRouterConstants.detailHomePageRouteName,pathParameters: {'id':id});
+                GoRouter.of(context).pushNamed(
+                    AppRouterConstants.detailHomePageRouteName,
+                    pathParameters: {'id': id});
               },
               child: Container(
                 margin: EdgeInsets.all(5),
-                width: 200,
+                width: w * 0.5,
+                height: h * 0.25,
                 child: Stack(
                   children: [
                     Positioned.fill(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: CachedNetworkImage(
-                          height: 200,
+                          height: h * 0.25,
                           imageUrl: recipe.image,
                           fit: BoxFit.cover,
                           placeholder: (context, url) {
-                            return shimmerLoading();
+                            return shimmerLoading(context);
                           },
                         ),
                       ),
@@ -68,7 +76,7 @@ class HomePageRecipeList<TCubit extends Cubit<RecipeCubitState>>  extends Statel
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           padding: EdgeInsets.all(5),
-                          width: 180,
+                          width: w * 0.45,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25)),
                           child: Text(
@@ -90,29 +98,27 @@ class HomePageRecipeList<TCubit extends Cubit<RecipeCubitState>>  extends Statel
     );
   }
 }
-viewAllCubitSuccessWorker({required BuildContext context, required Cuisines cuisines,required List<RecipeHomeModel> data,
-required RecipeCubitState state
-}){
-  if(state is RecipeCubitSuccess){
 
+viewAllCubitSuccessWorker(
+    {required BuildContext context,
+    required Cuisines cuisines,
+    required List<RecipeHomeModel> data,
+    required RecipeCubitState state}) {
+  if (state is RecipeCubitSuccess) {
     if (cuisines == Cuisines.british) {
-          context.read<ViewAllPageTextCubitBritish>().dataExists(recipes: data);
-    }else   if (cuisines == Cuisines.indian) {
-                  context.read<ViewAllPageTextCubitIndian>().dataExists(recipes: data);
-
-    }else{
-                    context.read<ViewAllPageTextCubitItalian>().dataExists(recipes: data);
-
+      context.read<ViewAllPageTextCubitBritish>().dataExists(recipes: data);
+    } else if (cuisines == Cuisines.indian) {
+      context.read<ViewAllPageTextCubitIndian>().dataExists(recipes: data);
+    } else {
+      context.read<ViewAllPageTextCubitItalian>().dataExists(recipes: data);
     }
-  }else{
-     if (cuisines == Cuisines.british) {
-          context.read<ViewAllPageTextCubitBritish>().dataNotExist();
-    }else   if (cuisines == Cuisines.indian) {
-                  context.read<ViewAllPageTextCubitIndian>().dataNotExist();
-
-    }else{
-                    context.read<ViewAllPageTextCubitItalian>().dataNotExist();
-
+  } else {
+    if (cuisines == Cuisines.british) {
+      context.read<ViewAllPageTextCubitBritish>().dataNotExist();
+    } else if (cuisines == Cuisines.indian) {
+      context.read<ViewAllPageTextCubitIndian>().dataNotExist();
+    } else {
+      context.read<ViewAllPageTextCubitItalian>().dataNotExist();
     }
   }
 }
