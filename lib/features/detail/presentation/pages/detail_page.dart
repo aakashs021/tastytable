@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tastytable/features/detail/data/data%20source/recipe_detail_remote_datasource.dart';
 import 'package:tastytable/features/detail/data/model/recipe_detail_model.dart';
 import 'package:tastytable/features/detail/presentation/bloc/recipe_detail_bloc.dart';
 import 'package:tastytable/features/detail/presentation/bloc/recipe_detail_event.dart';
 import 'package:tastytable/features/detail/presentation/bloc/recipe_detail_state.dart';
-import 'package:tastytable/features/detail/presentation/widgets/detail_content.dart';
 import 'package:tastytable/features/detail/presentation/widgets/detail_content2.dart';
 import 'package:tastytable/features/detail/presentation/widgets/detail_page_failure.dart';
 import 'package:tastytable/features/detail/presentation/widgets/shimmer.dart';
-import 'package:tastytable/service_locator.dart';
 
 class DetailPage extends StatefulWidget {
   final String id;

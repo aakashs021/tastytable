@@ -1,4 +1,4 @@
-package com.example.tastytable
+package com.aakash.tastytable
 
 import android.content.Intent
 import android.net.Uri

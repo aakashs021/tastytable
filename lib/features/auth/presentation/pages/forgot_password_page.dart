@@ -7,13 +7,12 @@ import 'package:tastytable/core/utils/validators/email_validators.dart';
 import 'package:tastytable/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:tastytable/features/auth/presentation/bloc/auth_event.dart';
 import 'package:tastytable/features/auth/presentation/bloc/auth_state.dart';
-import 'package:tastytable/router/app_router_constants.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   ForgotPasswordPage({super.key});
 
   final TextEditingController controller = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,0 +1,2 @@
+D:/coding/Personal/tastytable/android/app/.cxx/RelWithDebInfo/1sz3l1cy/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/coding/Personal/tastytable/android/app/.cxx/RelWithDebInfo/1sz3l1cy/armeabi-v7a/CMakeFiles/rebuild_cache.dir

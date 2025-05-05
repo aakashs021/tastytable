@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tastytable/core/configs/theme/app_theme.dart';
 import 'package:tastytable/core/utils/shared%20preference/dark_theme_preference.dart';
 
 class ThemeCubit extends Cubit<ThemeMode> {

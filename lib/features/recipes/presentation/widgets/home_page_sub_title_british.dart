@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tastytable/core/configs/theme/app_colors.dart';
 import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
 import 'package:tastytable/features/recipes/presentation/cubit/view_all_page/view_all_page_text_state.dart';
 import 'package:tastytable/router/app_router_constants.dart';

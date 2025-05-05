@@ -7,12 +7,64 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:313981550890:android:a8b4c77280baea9a3a9e53",
+        "android_client_info": {
+          "package_name": "com.aakash.tastytable"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313981550890-9q5n9liclsgp6g36m3b10apjnj7pn2hk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aakash.tastytable",
+            "certificate_hash": "fe2ebf061bee21e539d5fd5168172b5032f5c858"
+          }
+        },
+        {
+          "client_id": "313981550890-afb5jqkasj3jdart9qe18jre57nmlf4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD385Vqrqt2WEXxepeytI44PyiVdRY6_20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313981550890-afb5jqkasj3jdart9qe18jre57nmlf4j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "313981550890-ufvt33s2bh9efusom4hs9mitfb4ivjgk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tastytable"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:313981550890:android:d2b04cf868a19c143a9e53",
         "android_client_info": {
           "package_name": "com.example.tastytable"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "313981550890-99eqolc7poelbn10n6052a8d8jun6heb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tastytable",
+            "certificate_hash": "33bfc704b241e95a9e6a72edb0e7b7e9375eec3c"
+          }
+        },
         {
           "client_id": "313981550890-i2vngk9q8pn9em9h5dn36n19bqn75ihj.apps.googleusercontent.com",
           "client_type": 1,

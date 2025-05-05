@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '313981550890',
     projectId: 'tastytable-32cd1',
     storageBucket: 'tastytable-32cd1.firebasestorage.app',
-    iosBundleId: 'com.example.tastytable',
+    iosBundleId: 'com.aakash.tastytable',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -72,7 +72,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '313981550890',
     projectId: 'tastytable-32cd1',
     storageBucket: 'tastytable-32cd1.firebasestorage.app',
-    iosBundleId: 'com.example.tastytable',
+    iosBundleId: 'com.aakash.tastytable',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
@@ -83,5 +83,4 @@ class DefaultFirebaseOptions {
     authDomain: 'tastytable-32cd1.firebaseapp.com',
     storageBucket: 'tastytable-32cd1.firebasestorage.app',
   );
-
 }

@@ -1,5 +1,4 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,13 +8,10 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:tastytable/core/configs/theme/app_colors.dart';
-import 'package:tastytable/features/settings/domain/usecase/delete_google_account_usecase.dart';
-import 'package:tastytable/features/settings/domain/usecase/get_login_method_usecase.dart';
 import 'package:tastytable/features/settings/presentation/bloc/delete%20google%20account/delete_google_account_bloc.dart';
 import 'package:tastytable/features/settings/presentation/bloc/delete%20google%20account/delete_google_account_event.dart';
 import 'package:tastytable/features/settings/presentation/bloc/delete%20google%20account/delete_google_account_state.dart';
 import 'package:tastytable/router/app_router_constants.dart';
-import 'package:tastytable/service_locator.dart';
 
 class DeleteAccountConfirmPage extends StatelessWidget {
   final String? reason;

@@ -63,9 +63,10 @@ class HomePage extends StatelessWidget {
                   HomePageTitle(context: context),
                   HomePageRecipeView(
                       cuisines: Cuisines.british, context: context),
-                  // HomePageRecipeView(
-                  //     cuisines: Cuisines.italian, context: context),
-                  // HomePageRecipeView(cuisines: Cuisines.indian, context: context),
+                  HomePageRecipeView(
+                      cuisines: Cuisines.italian, context: context),
+                  HomePageRecipeView(
+                      cuisines: Cuisines.indian, context: context),
                 ],
               ),
             ),

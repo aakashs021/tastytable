@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:tastytable/core/network/api_client.dart';
 import 'package:tastytable/core/network/api_client_impl.dart';
 import 'package:tastytable/core/usecase/auth/usecase_forgot_password.dart';
-import 'package:tastytable/core/usecase/search/usecase_search.dart';
 import 'package:tastytable/features/auth/data/data_source/firebase_authentication/auth_firebase_service.dart';
 import 'package:tastytable/features/auth/data/data_source/firebase_authentication/auth_firebase_services_impl.dart';
 import 'package:tastytable/features/auth/data/data_source/firebase_firestore/firebase_firestore_service.dart';

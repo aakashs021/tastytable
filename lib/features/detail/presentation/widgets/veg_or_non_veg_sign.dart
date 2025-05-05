@@ -6,7 +6,6 @@ Widget vegOrNonVegSign({required bool isVeg}) {
   String image = isVeg
       ? AppImages.detailPageVegetarianSign
       : AppImages.detailPageNonVegetarianSign;
-  String text = isVeg ? "Veg" : "Non-Veg";
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [

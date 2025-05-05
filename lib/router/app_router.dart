@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tastytable/features/auth/presentation/pages/forgot_password_page.dart';
-import 'package:tastytable/features/auth/presentation/pages/open_email_page.dart';
 import 'package:tastytable/features/detail/presentation/pages/detail_page.dart';
 import 'package:tastytable/features/recipes/data/model/recipe_home_model.dart';
 import 'package:tastytable/features/recipes/presentation/pages/view_all_page.dart';

@@ -24,7 +24,7 @@ class AppColors {
   //     isDark ? Colors.white : Colors.black;
   static const Color recipeFoodTitleColor = Colors.white;
   static Color get recipePopUpCancelTextColor =>
-  isDark? Colors.white:Colors.black;
+      isDark ? Colors.white : Colors.black;
 
   // Shimmer
   static Color get shimmerBaseColor =>
@@ -39,7 +39,7 @@ class AppColors {
 
   // Settings
   static const Color settingsSignoutBackgroundColor = Colors.red;
-  static const Color  settingsSignoutForegroundColor = Colors.white;
+  static const Color settingsSignoutForegroundColor = Colors.white;
   static const Color settingsUserNameIconColor = Colors.blue;
 
   // Settings TextField Border
@@ -64,20 +64,27 @@ class AppColors {
   static Color get privacyAndPolicyOwnerTextColor =>
       isDark ? Colors.grey.shade500 : Colors.grey;
 
-      // Detail
-      static Color get detailContentBackgroundColor =>
+  // Detail
+  static Color get detailContentBackgroundColor =>
       isDark ? Colors.black : Colors.white;
-      static Color get detailContentTopDivider =>
+  static Color get detailContentTopDivider =>
       isDark ? Colors.black26 : Colors.white24;
-      static Color get detailVerticalDividerContainer =>
+  static Color get detailVerticalDividerContainer =>
       isDark ? Colors.white : Colors.black;
-      static Color get detailSummaryContainer =>
+  static Color get detailSummaryContainer =>
       isDark ? Colors.green.shade900 : Colors.green.shade100;
-      static Color get detailIngredientsContainer =>
+  static Color get detailIngredientsContainer =>
       isDark ? Colors.blue.shade900 : Colors.blue.shade100;
-      static Color get detailDirectionsContainer =>
+  static Color get detailDirectionsContainer =>
       isDark ? Colors.grey.shade900 : Colors.grey.shade100;
-      static Color get detailDirectionsContainerBottomColor =>
+  static Color get detailDirectionsContainerBottomColor =>
       isDark ? Colors.black : Colors.white;
-      
+
+  // search
+  static Color get searchPageBGColor =>
+      isDark ? Colors.black : Colors.grey.shade100;
+  static Color get searchPageTitleTextColor =>
+      isDark ? Colors.white : Colors.black;
+      static Color get searchPageIngridientsTextColor =>
+      isDark ? Colors.black : Colors.black;
 }
